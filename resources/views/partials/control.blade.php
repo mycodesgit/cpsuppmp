@@ -9,8 +9,8 @@
                 <i class="fas fa-th"></i> Dashboard
             </a>
             
-            <a href="{{ route('category_list') }}" class="btn btn-app {{ request()->is('view*') ? 'active' : '' }}">
-                <i class="fas fa-list"></i> View
+            <a href="{{ route('categoryRead') }}" class="btn btn-app {{ request()->is('view*') ? 'active' : '' }}">
+                <i class="fas fa-list"></i> Manage
             </a>
 
             <a href="{{ route('pending_list') }}" class="btn btn-app {{ request()->is('request*') ? 'active' : '' }}">

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginAuth
 {
@@ -16,17 +17,16 @@ class LoginAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->check()){
-            if(!auth()->user()->role){
+        if(Auth::guard('web')->check()){
+            if(!Auth::user()->role){
                 return redirect()->route('getLogin')->with('error','You have to be admin user to access this page');
             }
-            if(auth()->user()->hasRole('Payroll Administrator')){
+            if(Auth::user()->hasRole('Payroll Administrator')){
                 if ($request->is('users') || $request->is('users/*')) {
                     return redirect()->route('dashboard')->with('error1', 'You do not have permission to access this page');
                 }
             }
-            if(auth()->user()->hasRole('Payroll Extension')) {
-                // restrict access to certain pages
+            if(Auth::user()->hasRole('Payroll Extension')) {
                 if ($request->is('users', 'office') || $request->is('users/*', 'office/*')) {
                     return redirect()->route('dashboard')->with('error1', 'You do not have permission to access this page');
                 }

@@ -5,16 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Office extends Model
+class Item extends Model
 {
     use HasFactory;
 
     protected $primaryKey = 'id';
-    protected $table = 'office';
+    protected $table = 'item';
 
     protected $fillable = [
-        'office_name',
-        'office_abbr',
+        'item_name',
+        'item_descrip',
+        'item_cost',
+        'category_id',
+        'unit_id',
         'remember_token',
     ];
 }

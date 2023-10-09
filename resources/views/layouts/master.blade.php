@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('template/plugins/toastr/toastr.min.css') }}">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -35,6 +40,10 @@
         }
         .nav-link{
             color: #fff !important;
+        }
+        .bg-selectEdit{
+            background-color: #dcfdeb !important ;
+            color: #000 !important;
         }
         
         .content-header {
@@ -93,72 +102,8 @@
                     <span class="brand-text text-light"> Procurement Management System</span>
                 </a>
 
-                <!-- Right navbar links -->
+                
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- Messages Dropdown Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="fas fa-comments"></i>
-                            <span class="badge badge-danger navbar-badge">3</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <a href="#" class="dropdown-item">
-                                <!-- Message Start -->
-                                <div class="media">
-                                    <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                        <div class="media-body">
-                                            <h3 class="dropdown-item-title">
-                                                Brad Diesel
-                                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                            </h3>
-                                            <p class="text-sm">Call me whenever you can...</p>
-                                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                        </div>
-                                </div>
-                                <!-- Message End -->
-                            </a>
-
-                            <div class="dropdown-divider"></div>
-
-                            <a href="#" class="dropdown-item">
-                                <!-- Message Start -->
-                                <div class="media">
-                                    <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                    <div class="media-body">
-                                        <h3 class="dropdown-item-title">
-                                            John Pierce
-                                            <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                        </h3>
-                                        <p class="text-sm">I got your message bro</p>
-                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                    </div>
-                                </div>
-                                <!-- Message End -->
-                            </a>
-                            
-                            <div class="dropdown-divider"></div>
-                            
-                            <a href="#" class="dropdown-item">
-                                <!-- Message Start -->
-                                <div class="media">
-                                    <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                    <div class="media-body">
-                                        <h3 class="dropdown-item-title">
-                                            Nora Silvester
-                                            <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                        </h3>
-                                        <p class="text-sm">The subject goes here</p>
-                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                    </div>
-                                </div>
-                                <!-- Message End -->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                        </div>
-                    </li>
-
-                    <!-- Notifications Dropdown Menu -->
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
@@ -187,51 +132,40 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                            <i class="fas fa-user"></i>&nbsp;&nbsp;Signed In: {{auth()->user()->fname}}
+                            <i class="fas fa-user"></i>&nbsp;&nbsp;Signed In: {{Auth::user()->fname}}
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <!-- /.navbar -->
 
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <div class="content-header">
-                    <div class="container-fluid" style="margin-top: auto">
-                        @include('partials.control')
-                    </div>
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid" style="margin-top: auto">
+                    @include('partials.control')
                 </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <div class="content">
-                    @yield('body')
-                </div>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-inline mt-2">
-            Anything you want
+            <div class="content">
+                @yield('body')
+            </div>
         </div>
-        <strong>Maintain and Manage by <a href="#">MIS</a>.</strong> All rights reserved.
+
+        
+        <aside class="control-sidebar control-sidebar-dark">
+            
+        </aside>
+   
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-inline ">
+            Procurement Management System
+        </div>
+        Developed and Maintain by <i>Management Information System Office</i>.
     </footer>
 </div>
-<!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="{{ asset('app.js') }}"></script>
 <!-- jQuery -->
 <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
@@ -243,6 +177,8 @@
 <script src="{{ asset('template/plugins/toastr/toastr.min.js') }}"></script>
 <!-- SweetAlert2 -->
 <script src="{{ asset('template/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('template/plugins/select2/js/select2.full.min.js') }}"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -257,6 +193,19 @@
 <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<!-- jquery-validation -->
+<script src="{{ asset('template/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('template/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+<script src="{{ asset('js/basic/tableScript.js') }}"></script>
+<script src="{{ asset('js/basic/categoryScript.js') }}"></script>
+<script src="{{ asset('js/basic/unitScript.js') }}"></script>
+<script src="{{ asset('js/basic/itemScript.js') }}"></script>
+<script src="{{ asset('js/basic/officeScript.js') }}"></script>
+
+<script src="{{ asset('js/validation/categoryValidation.js') }}"></script>
+<script src="{{ asset('js/validation/unitValidation.js') }}"></script>
 
 <script>
     @if(Session::has('error'))
@@ -286,27 +235,6 @@
         }
         toastr.success("{{ session('success') }}")
     @endif
-</script>
-
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": false,
-            "lengthChange": true, 
-            "autoWidth": true,
-            //"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-
-        $("#example3").DataTable({
-            "responsive": true,
-            "lengthChange": true, 
-            "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-
-            }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-    });
 </script>
 
 </body>
