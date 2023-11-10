@@ -4,6 +4,12 @@
 
 @php $cr = request()->route()->getName(); @endphp
 
+<style>
+    .select2bs4-selection,
+    .form-control1 {
+        height: 35px !important;
+    }
+</style>
 <div class="container-fluid">
     <div class="row" style="padding-top: 100px;">
         <div class="col-lg-2">
@@ -58,7 +64,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ $cr == 'itemEdit' ? route('itemUpdate', ['id' => $editItem->id]) : route('itemCreate') }}" method="post" id="addUser">
+                    <form class="form-horizontal" action="{{ $cr == 'itemEdit' ? route('itemUpdate', ['id' => $editItem->id]) : route('itemCreate') }}" method="post" id="office">
                         @csrf
                         <div class="form-group">
                             <div class="form-row">

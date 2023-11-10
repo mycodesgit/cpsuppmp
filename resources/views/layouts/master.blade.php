@@ -53,8 +53,8 @@
         }
 
         .container-fluid {
-            padding-right: 0 !important;
-            padding-left: 0 !important;
+            padding-right: 2 !important;
+            padding-left: 2 !important;
             margin-right: auto !important;
             margin-left: auto !important;
         }
@@ -97,9 +97,9 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light bg-greenn">
             <div class="container-fluid">
-                <a href="" class="navbar-brand">
+                <a href="" class="mt-1">
                     <img src="{{ asset('template/img/CPSU_L.png') }}" alt="AdminLTE Logo" class="brand-image img-circle" style="box-shadow: 0 0 4px white;">
-                    <span class="brand-text text-light"> Procurement Management System</span>
+                    <span class="text-light text-bold" style="font-size: 12pt"> Procurement Management System</span>
                 </a>
 
                 
@@ -141,7 +141,7 @@
 
         <div class="content-wrapper">
             <div class="content-header">
-                <div class="container-fluid" style="margin-top: auto">
+                <div class="container-fluid" style="margin-top: -5px">
                     @include('partials.control')
                 </div>
             </div>
@@ -206,6 +206,11 @@
 
 <script src="{{ asset('js/validation/categoryValidation.js') }}"></script>
 <script src="{{ asset('js/validation/unitValidation.js') }}"></script>
+<script src="{{ asset('js/validation/itemValidation.js') }}"></script>
+<script src="{{ asset('js/validation/officeValidation.js') }}"></script>
+<script src="{{ asset('js/validation/requestprValidation.js') }}"></script>
+<script src="{{ asset('js/validation/userValidation.js') }}"></script>
+<script src="{{ asset('js/validation/passValidation.js') }}"></script>
 
 <script>
     @if(Session::has('error'))

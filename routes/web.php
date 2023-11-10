@@ -69,16 +69,24 @@ Route::group(['middleware'=>['login_auth']],function(){
 
     //Request
     Route::prefix('/request')->group(function () {
-        Route::get('/pendingPR_list', [RequestController::class, 'pending_list'])->name('pending_list');
-        Route::get('/approvedPR_list', [RequestController::class, 'approved_list'])->name('approved_list');
+        Route::get('/pendingPR_list', [RequestController::class, 'pendingListRead'])->name('pendingListRead');
+        Route::get('/approvedPR_list', [RequestController::class, 'approvedListRead'])->name('approvedListRead');
+        Route::get('/purchaseRequest/add', [RequestController::class, 'prCreate'])->name('prCreate');
+        Route::get('get-items/{id}', [RequestController::class, 'getItemsByCategory'])->name('getItemsByCategory');
+
         Route::get('/pdfPRform/view', [PDFprController::class, 'PDFprRead'])->name('PDFprRead');
         Route::get('/pdfPRformTemplate/view', [PDFprController::class, 'PDFprShowTemplate'])->name('PDFprShowTemplate');
+
+        Route::get('/pdfBARSform/view', [PDFprController::class, 'PDFbarsRead'])->name('PDFbarsRead');
+        Route::get('/pdfBARSformTemplate/view', [PDFprController::class, 'PDFbarsShowTemplate'])->name('PDFbarsShowTemplate');
     });
 
     //Users
     Route::prefix('/users')->group(function () {
         Route::get('/list',[UserController::class,'user_list'])->name('user_list');
         Route::get('/account-settings',[UserController::class,'user_settings'])->name('user_settings');
+        Route::post('/account-settings/information/update',[UserController::class,'user_settings_profile_update'])->name('user_settings_profile_update');
+        Route::post('/acccount-settings/information/updatePass',[UserController::class,'profilePassUpdate'])->name('profilePassUpdate');
     });
     
     //Logout

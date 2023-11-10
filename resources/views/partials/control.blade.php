@@ -13,7 +13,7 @@
                 <i class="fas fa-list"></i> Manage
             </a>
 
-            <a href="{{ route('pending_list') }}" class="btn btn-app {{ request()->is('request*') ? 'active' : '' }}">
+            <a href="{{ route('prCreate') }}" class="btn btn-app {{ request()->is('request*') ? 'active' : '' }}">
                 <i class="fas fa-server"></i> Request
             </a>
 

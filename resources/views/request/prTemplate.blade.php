@@ -117,6 +117,9 @@
 			border-right: 2px solid #000 !important;
 			border-bottom: 2px solid #000 !important;
 		}
+		.text-item {
+			text-align: left !important;
+		}
 
 
 		.appendix-no {
@@ -163,7 +166,7 @@
 			<tr>
 				<th class="cell-bold-left">1</th>
 				<th>Box</th>
-				<th>Laptop - Core i5</th>
+				<th class="text-item">Notebook Ultra 3K - 11th Gen Intel Core I9-11300H, 3.1 GHz, 512 GB SSD, 8 GB RAM, Windows 11 Home, Lithium-ion Battery Lasts Up To 12 Hours</th>
 				<th>1</th>
 				<th>22, 000</th>
 				<th class="cell-bold-right">22, 000</th>

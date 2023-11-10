@@ -58,7 +58,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ $cr == 'officeEdit' ? route('officeUpdate', ['id' => $selectedOffice->id]) : route('officeCreate') }}" method="post" id="addUser">
+                    <form class="form-horizontal" action="{{ $cr == 'officeEdit' ? route('officeUpdate', ['id' => $selectedOffice->id]) : route('officeCreate') }}" method="post" id="office">
                         @csrf
                         @if ($cr == 'officeEdit')
                             <input type="hidden" name="id" value="{{ $selectedOffice->id }}">

@@ -16,4 +16,13 @@ class PDFprController extends Controller
         $pdf = PDF::loadView('request.prTemplate')->setPaper('Legal', 'portrait');
         return $pdf->stream();
     }
+
+    public function PDFbarsRead() {
+        return view('request.BARSFormTemplate');
+    }
+
+    public function PDFbarsShowTemplate() {
+        $pdf = PDF::loadView('request.barsTemplate')->setPaper('Legal', 'portrait');
+        return $pdf->stream();
+    }
 }
