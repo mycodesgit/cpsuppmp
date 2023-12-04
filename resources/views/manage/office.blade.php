@@ -8,10 +8,7 @@
     <div class="row" style="padding-top: 100px;">
         <div class="col-lg-2">
             <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 17pt"></h5>
-                    @include('partials.control_viewSidebar')
-                </div>
+                @include('partials.control_viewSidebar')
             </div>
         </div>
         <div class="col-lg-7">
@@ -35,12 +32,20 @@
                                     <td>{{ $data->office_name }}</td>
                                     <td>{{ $data->office_abbr }}</td>
                                     <td>
-                                        <a href="{{ route('officeEdit', $data->id) }}" class="btn btn-info btn-xs btn-edit" data-id="{{ $data->id }}">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                        </a>
-                                        <button value="{{ $data->id }}" class="btn btn-danger btn-xs item-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <div class="btn-group">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a href="{{ route('officeEdit', $data->id) }}" class="dropdown-item btn-edit" data-id="{{ $data->id }}">
+                                                        <i class="fas fa-exclamation-circle"></i> Edit
+                                                    </a>
+                                                    <button value="{{ $data->id }}" class="dropdown-item office-delete">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

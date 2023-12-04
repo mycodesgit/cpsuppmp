@@ -35,7 +35,7 @@
             border-radius: 3px;
         }
         .bg-greenn{
-            background-color: #1f5036;
+            background-color: #04401f;
             color: #000 !important;
         }
         .nav-link{
@@ -45,6 +45,12 @@
             background-color: #dcfdeb !important ;
             color: #000 !important;
         }
+        .center-top {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
         
         .content-header {
             position: fixed !important;
@@ -53,13 +59,16 @@
         }
 
         .container-fluid {
-            padding-right: 2 !important;
-            padding-left: 2 !important;
+            padding-right: 2% !important;
+            padding-left: 2% !important;
             margin-right: auto !important;
             margin-left: auto !important;
         }
         .btn-app{
-            color: #1f5036;
+            color: #04401f;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2) !important;
+            font-size: 11pt !important;
+            font-weight: bold;
         }
         .btn-app:hover{
             background-color: #187744;
@@ -70,6 +79,13 @@
             background-color: #187744;
             color: #fff;
             border: 1px blur #ffc107;
+        }
+        .nav-link{
+            color: #000 !important;
+        }
+        .nav-link.active{
+            /*background-color: #187744 !important ;*/
+            color: #000 !important;
         }
         .nav-link2{
             font-size: 12pt;
@@ -89,6 +105,22 @@
             color: #fff !important;
             border-radius: 1px blur #ffc107;
         }
+
+        a.list-group-item {
+            font-size: 12pt !important;
+            color: #000 !important;
+            padding: 8px !important;
+        }
+
+        a.list-group-item:focus,
+        a.list-group-item:hover,
+        a.list-group-item.active,
+        button.list-group-item:focus,
+        button.list-group-item:hover {
+            background-color: #187744 !important;
+            color: #fff !important;
+            border-color: #04401f;
+        }
         
     </style>
 </head>
@@ -98,14 +130,16 @@
         <nav class="main-header navbar navbar-expand-md navbar-light bg-greenn">
             <div class="container-fluid">
                 <a href="" class="mt-1">
-                    <img src="{{ asset('template/img/CPSU_L.png') }}" alt="AdminLTE Logo" class="brand-image img-circle" style="box-shadow: 0 0 4px white;">
-                    <span class="text-light text-bold" style="font-size: 12pt"> Procurement Management System</span>
+                    <img src="{{ asset('template/img/CPSU_L.png') }}" alt="AdminLTE Logo" class="brand-image img-circle" style="box-shadow: 0 0 3px white;">
+                    <span class="text-light" style="font-size: 12pt; font-family: Courier"> Procurement Management System</span>
                 </a>
-
+                {{-- <div class="" style="z-index: 999">
+                    <img src="{{ asset('template/img/CPSU_L.png') }}" style="width:80px;" class="center-top">
+                </div> --}}
                 
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
+                        <a class="nav-link" data-toggle="dropdown" href="#" style="color: #fff !important">
                             <i class="far fa-bell"></i>
                             <span class="badge badge-warning navbar-badge">15</span>
                         </a>
@@ -131,7 +165,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" style="color: #fff !important">
                             <i class="fas fa-user"></i>&nbsp;&nbsp;Signed In: {{Auth::user()->fname}}
                         </a>
                     </li>
@@ -179,6 +213,8 @@
 <script src="{{ asset('template/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('template/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Moment -->
+<script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -203,6 +239,7 @@
 <script src="{{ asset('js/basic/unitScript.js') }}"></script>
 <script src="{{ asset('js/basic/itemScript.js') }}"></script>
 <script src="{{ asset('js/basic/officeScript.js') }}"></script>
+<script src="{{ asset('js/basic/requestitemScript.js') }}"></script>
 
 <script src="{{ asset('js/validation/categoryValidation.js') }}"></script>
 <script src="{{ asset('js/validation/unitValidation.js') }}"></script>
@@ -211,6 +248,10 @@
 <script src="{{ asset('js/validation/requestprValidation.js') }}"></script>
 <script src="{{ asset('js/validation/userValidation.js') }}"></script>
 <script src="{{ asset('js/validation/passValidation.js') }}"></script>
+
+<script src="{{ asset('js/ajax/allpending.js') }}"></script>
+<script src="{{ asset('js/ajax/allCountPending.js') }}"></script>
+
 
 <script>
     @if(Session::has('error'))

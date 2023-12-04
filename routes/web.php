@@ -10,6 +10,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PDFprController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\RequestPendingController;
+use App\Http\Controllers\RequestApprovedController;
 use App\Http\Controllers\UserController;
 
 
@@ -69,10 +71,32 @@ Route::group(['middleware'=>['login_auth']],function(){
 
     //Request
     Route::prefix('/request')->group(function () {
-        Route::get('/pendingPR_list', [RequestController::class, 'pendingListRead'])->name('pendingListRead');
-        Route::get('/approvedPR_list', [RequestController::class, 'approvedListRead'])->name('approvedListRead');
-        Route::get('/purchaseRequest/add', [RequestController::class, 'prCreate'])->name('prCreate');
+        Route::get('/purchaseRequest/purpose', [RequestController::class, 'prPurposeRequest'])->name('prPurposeRequest');
+        Route::post('/purchaseRequest/purpose/add', [RequestController::class, 'prPurposeRequestCreate'])->name('prPurposeRequestCreate');
+
+        Route::get('/purchaseRequest/{purpose_Id}', [RequestController::class, 'prCreateRequest'])->name('prCreateRequest');
+        Route::post('/purchaseRequest/add', [RequestController::class, 'prCreate'])->name('prCreate');
         Route::get('get-items/{id}', [RequestController::class, 'getItemsByCategory'])->name('getItemsByCategory');
+        Route::post('/purchaseRequest/add/save', [RequestController::class, 'savePR'])->name('savePR');
+        Route::get('/purchaseRequest/delete/{id}', [RequestController::class, 'itemreqDelete'])->name('itemreqDelete');
+
+        Route::get('/pendingPR_list', [RequestPendingController::class, 'pendingListRead'])->name('pendingListRead');
+        Route::get('/pendingPR_list/view/{pid}', [RequestPendingController::class, 'pendingListView'])->name('pendingListView');
+        Route::get('/pendingPR_list/pdf/{pid}', [RequestPendingController::class, 'PDFprPending'])->name('PDFprPending');
+
+        Route::get('/pendingPR/list', [RequestPendingController::class, 'pendingAllListRead'])->name('pendingAllListRead');
+        Route::get('/pendingPR/list/ajax', [RequestPendingController::class, 'getpendingAllListRead'])->name('getpendingAllListRead');
+        Route::get('/pendingPR/list/view/{pid}', [RequestPendingController::class, 'pendingAllListView'])->name('pendingAllListView');
+        Route::get('/pendingPR/list/pdf/{pid}', [RequestPendingController::class, 'PDFprAllPending'])->name('PDFprAllPending');
+        Route::post('/pendingPR/list/approved', [RequestPendingController::class, 'approvedPR'])->name('approvedPR');
+
+        Route::get('/approvedPR_list', [RequestApprovedController::class, 'approvedListRead'])->name('approvedListRead');
+        Route::get('/approvedPR_list/view/{pid}', [RequestApprovedController::class, 'approvedListView'])->name('approvedListView');
+        Route::get('/approvedPR_list/pdf/{pid}', [RequestApprovedController::class, 'PDFprApproved'])->name('PDFprApproved');
+
+        Route::get('/approvedPR/list', [RequestApprovedController::class, 'approvedListAllRead'])->name('approvedListAllRead');
+        Route::get('/approvedPR/list/view/{pid}', [RequestApprovedController::class, 'approvedListView'])->name('approvedListView');
+        Route::get('/approvedPR/list/pdf/{pid}', [RequestApprovedController::class, 'PDFprApproved'])->name('PDFprApproved');
 
         Route::get('/pdfPRform/view', [PDFprController::class, 'PDFprRead'])->name('PDFprRead');
         Route::get('/pdfPRformTemplate/view', [PDFprController::class, 'PDFprShowTemplate'])->name('PDFprShowTemplate');
@@ -84,6 +108,7 @@ Route::group(['middleware'=>['login_auth']],function(){
     //Users
     Route::prefix('/users')->group(function () {
         Route::get('/list',[UserController::class,'user_list'])->name('user_list');
+        Route::post('/list/add', [UserController::class, 'userCreate'])->name('userCreate');
         Route::get('/account-settings',[UserController::class,'user_settings'])->name('user_settings');
         Route::post('/account-settings/information/update',[UserController::class,'user_settings_profile_update'])->name('user_settings_profile_update');
         Route::post('/acccount-settings/information/updatePass',[UserController::class,'profilePassUpdate'])->name('profilePassUpdate');

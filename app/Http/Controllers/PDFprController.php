@@ -13,16 +13,16 @@ class PDFprController extends Controller
     }
 
     public function PDFprShowTemplate() {
-        $pdf = PDF::loadView('request.prTemplate')->setPaper('Legal', 'portrait');
+        $pdf = PDF::loadView('request.forms.prTemplate')->setPaper('Legal', 'portrait');
         return $pdf->stream();
     }
 
     public function PDFbarsRead() {
-        return view('request.BARSFormTemplate');
+        return view('request.forms.BARSFormTemplate');
     }
-
+    
     public function PDFbarsShowTemplate() {
-        $pdf = PDF::loadView('request.barsTemplate')->setPaper('Legal', 'portrait');
+        $pdf = PDF::loadView('request.forms.barsTemplate')->setPaper('Legal', 'portrait');
         return $pdf->stream();
     }
 }

@@ -18,7 +18,9 @@ class MasterController extends Controller
         $camp = Campus::all();
         $userCount = User::count();
         $campusCount = Campus::count();
-        return view("home.dashboard", compact('camp', 'userCount', 'campusCount'));
+        $offCount = Office::count();
+        
+        return view("home.dashboard", compact('camp', 'userCount', 'campusCount', 'offCount'));
     }
 
     public function logout(){

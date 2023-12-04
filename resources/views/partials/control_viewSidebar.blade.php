@@ -7,29 +7,24 @@
     $officeActive = in_array($curr_route, ['officeRead', 'officeEdit']) ? 'active' : '';
 @endphp
 
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-        <a href="{{ route('categoryRead') }}" class="nav-link2 {{ $categoryActive }}" style="color: #000;">
-            Category
-        </a>
-    </li>
 
-    <li class="nav-item">
-        <a href="{{ route('unitRead') }}" class="nav-link2 {{ $unitActive }}" style="color: #000;">
-            Unit
-        </a>
-    </li>
+<h5 class="card-title ml-2 mr-2 mt-3" style="border-bottom: 1px solid #04401f; font-size: 14pt">
+    View list
+</h5>
+<div class="ml-2 mr-2 mt-3 mb-3">
+    <ul class="list-group">
+        <a href="{{ route('categoryRead') }}" class="list-group-item {{ $categoryActive }}">Category</a>
+        <a href="{{ route('unitRead') }}" class="list-group-item  {{ $unitActive }}">Units</a>
+        <a href="{{ route('itemRead') }}" class="list-group-item {{ $itemActive }}">Items</a>
+        <a href="{{ route('officeRead') }}" class="list-group-item {{ $officeActive }}">Offices</a>
+    </ul>
+</div>
 
-    
-    <li class="nav-item">
-        <a href="{{ route('itemRead') }}" class="nav-link2 {{ $itemActive }}" style="color: #000;">
-            Items
-        </a>
-    </li>
-    
-    <li class="nav-item">
-        <a href="{{ route('officeRead') }}" class="nav-link2 {{ $officeActive }}" style="color: #000;">
-            Offices
-        </a>
-    </li>
-</ul>
+{{-- <div class="ml-2 mr-2 mt-3 mb-3">
+    <ul class="list-group">
+        <a href="{{ route('categoryRead') }}" class="list-group-item {{ $categoryActive }}">Category</a>
+        <a href="{{ route('unitRead') }}" class="list-group-item {{ $unitActive }}">Units</a>  
+        <a href="{{ route('itemRead') }}" class="list-group-item {{ $itemActive }}">Items</a>
+        <a href="{{ route('officeRead') }}" class="list-group-item {{ $officeActive }}">Offices</a>
+    </ul>
+</div> --}}

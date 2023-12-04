@@ -8,22 +8,19 @@
     <div class="row" style="padding-top: 100px;">
         <div class="col-lg-2">
             <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 17pt"></h5>
-                    @include('partials.control_viewSidebar')
-                </div>
+                @include('partials.control_viewSidebar')
             </div>
         </div>
         <div class="col-lg-7">
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="example1" class="table table-bordered table-hover text-sm">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th width="10">No</th>
                                     <th>Cateogry</th>
-                                    <th>Action</th>
+                                    <th width="10">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,12 +30,20 @@
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $data->unit_name }}</td>
                                     <td>
-                                        <a href="{{ route('unitEdit', $data->id) }}" class="btn btn-info btn-xs btn-edit" data-id="{{ $data->id }}">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                        </a>
-                                        <button value="{{ $data->id }}" class="btn btn-danger btn-xs unit-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <div class="btn-group">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a href="{{ route('unitEdit', $data->id) }}" class="dropdown-item btn-edit" data-id="{{ $data->id }}">
+                                                        <i class="fas fa-exclamation-circle"></i> Edit
+                                                    </a>
+                                                    <button value="{{ $data->id }}" class="dropdown-item unit-delete">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

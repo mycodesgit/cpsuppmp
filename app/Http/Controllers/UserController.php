@@ -11,18 +11,65 @@ use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\Campus;
+use App\Models\Office;
 
 class UserController extends Controller
 {
     //
     public function user_list() {
         $camp = Campus::all();
+        $off = Office::all();
 
         $user = User::join('campuses', 'users.campus_id', '=', 'campuses.id')
-            ->select('users.id as uid', 'users.*', 'campuses.*')
+            ->join('office', 'users.office_id', '=', 'office.id')
+            ->select('users.id as uid', 'users.*', 'campuses.*', 'office.*')
             ->get();
 
-        return view("users.list", compact('user', 'camp'));
+        return view("users.list", compact('user', 'camp', 'off'));
+    }
+
+    public function userCreate(Request $request) {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'trans_no' => 'required',
+                'lname' => 'required',
+                'fname' => 'required',
+                'mname' => 'required',
+                'username' => 'required|string|min:5|unique:users,username',
+                'password' => 'required|string|min:5',
+                'campus_id' => 'required',
+                'office_id' => 'required',
+                'gender' => 'required',
+                'role' => 'required',
+            ]);
+
+            $userName = $request->input('username'); 
+            $existingUser = User::where('username', $userName)->first();
+
+            if ($existingUser) {
+                return redirect()->route('user_list')->with('error', 'User already exists!');
+            }
+
+            try {
+                User::create([
+                    'lname' => $request->input('lname'),
+                    'fname' => $request->input('fname'),
+                    'mname' => $request->input('mname'),
+                    'username' => $userName,
+                    'password' => Hash::make($request->input('password')),
+                    'campus_id' => $request->input('campus_id'),
+                    'office_id' => $request->input('office_id'),
+                    'role' => $request->input('role'),
+                    'gender' => $request->input('gender'),
+                    'code_no' => $request->input('code_no'),
+                    'remember_token' => Str::random(60),
+                ]);
+
+                return redirect()->route('user_list')->with('success', 'User stored successfully!');
+            } catch (\Exception $e) {
+                return redirect()->route('user_list')->with('error', 'Failed to store user!');
+            }
+        }
     }
 
     public function user_settings() {
