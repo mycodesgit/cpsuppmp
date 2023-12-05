@@ -70,7 +70,6 @@
                         </div>
 
                         <div class="tab-pane fade" id="custom-tabs-two" role="tabpanel" aria-labelledby="custom-tabs-two-tab" style="margin-top: -15px">
-                            {{-- <iframe src="{{ route('PDFprPending', encrypt($data['purpose_id'])) }}" width="100%" height="500"></iframe> --}}
                             @php
                                 $currentRoute = request()->route()->getName();
                             @endphp
@@ -87,7 +86,7 @@
                         <div class="tab-pane fade" id="custom-tabs-three" role="tabpanel" aria-labelledby="custom-tabs-three-tab">
                             <form action="{{ route('approvedPR') }}" class="form-horizontal" method="post" id="addItem">
                                 @csrf
-
+                                
                                 <input type="hidden" name="purpose_id" value="{{ encrypt($data->purpose_id ?? '') }}">
 
                                 <div class="form-group">

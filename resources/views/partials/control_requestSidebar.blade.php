@@ -9,11 +9,6 @@
     $pdfprActive = in_array($curr_route, ['PDFprRead']) ? 'active' : '';
     $pdfbarsActive = in_array($curr_route, ['PDFbarsRead']) ? 'active' : '';
 
-    // $requestPendingController = new App\Http\Controllers\RequestPendingController();
-    // $data = $requestPendingController->pendingAllListRead();
-    // $pendCount = $data['pendCount'] ?? [];
-    // $pendingAllCount = count($pendCount);
-
 @endphp
 
 <h5 class="card-title ml-2 mr-2 mt-3" style="border-bottom: 1px solid #04401f; font-size: 14pt">
@@ -29,7 +24,7 @@
     </ul>
 </div>
 
-@if(Auth::user()->role=='Budget Officer')
+@if(Auth::user()->role=='Budget Officer' || Auth::user()->role=='Procurement Officer')
     <h5 class="card-title ml-2 mr-2 mt-3" style="border-bottom: 1px solid #04401f; font-size: 14pt">
         Offices Request
     </h5>
@@ -49,7 +44,7 @@
 <div class="ml-2 mr-2 mt-3 mb-3">
     <ul class="list-group">
         <a href="" class="list-group-item">PR Form</a>
-        <a href="" class="list-group-item">RBARA Slip</a>
+        <a href="{{ route('PDFbarsRead') }}" class="list-group-item {{ $pdfbarsActive }}">RBARA Slip</a>
     </ul>
 </div>
 

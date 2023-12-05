@@ -97,7 +97,11 @@ class RequestPendingController extends Controller
             ->where('item_request.user_id', '=',  $userId)
             ->get();
 
-        return view ("request.pending.viewlist", compact('category', 'unit', 'item', 'pendItem', 'purpose'));
+        $pendCount = $this->getPendingAllCount();
+        $pendUserCount = $this->getPendingUserCount();
+        $data = ['pendCount' => $pendCount, 'pendUserCount' => $pendUserCount];
+
+        return view ("request.pending.viewlist", compact('category', 'unit', 'item', 'pendItem', 'purpose', 'data'));
     }
 
     public function pendingAllListView($pid) {

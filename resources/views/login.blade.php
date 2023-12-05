@@ -64,11 +64,11 @@
                     <a href="">
                         <img src="{{ asset('template/img/CPSU_L.png') }}" class="img-circle" width="103px" height="100px">
                     </a>
-                    <center style="font-family: Courier;font-size: 1em; font-weight: bolder;">
-                        CPSU PPPMP
+                    <center style="font-family: monospace;font-size: 0.8em; font-weight: bolder;">
+                        Purchase Request
                     </center>
                 </div>
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg text-muted">Sign in to start your session</p>
                
                 <form action="{{route('postLogin')}}" method="post">
                     @csrf

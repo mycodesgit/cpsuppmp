@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>CPSU || PPMP {{isset($title)?'| '.$title:''}}</title>
+    <title>CPSU || Purchase Request {{isset($title)?'| '.$title:''}}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -131,7 +131,7 @@
             <div class="container-fluid">
                 <a href="" class="mt-1">
                     <img src="{{ asset('template/img/CPSU_L.png') }}" alt="AdminLTE Logo" class="brand-image img-circle" style="box-shadow: 0 0 3px white;">
-                    <span class="text-light" style="font-size: 12pt; font-family: Courier"> Procurement Management System</span>
+                    <span class="text-light" style="font-size: 12pt; font-family: Courier"> Purchase Request</span>
                 </a>
                 {{-- <div class="" style="z-index: 999">
                     <img src="{{ asset('template/img/CPSU_L.png') }}" style="width:80px;" class="center-top">

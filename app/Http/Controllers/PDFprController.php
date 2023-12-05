@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
+use App\Traits\PendingCountTrait;
 
 class PDFprController extends Controller
 {
+    use PendingCountTrait;
+
     public function PDFprRead() {
         return view('request.PRFormTemplate');
     }
@@ -18,7 +21,11 @@ class PDFprController extends Controller
     }
 
     public function PDFbarsRead() {
-        return view('request.forms.BARSFormTemplate');
+        $pendCount = $this->getPendingAllCount();
+        $pendUserCount = $this->getPendingUserCount();
+        $data = ['pendCount' => $pendCount, 'pendUserCount' => $pendUserCount];
+
+        return view('request.forms.BARSFormTemplate', compact('data'));
     }
     
     public function PDFbarsShowTemplate() {

@@ -31,7 +31,6 @@ class UserController extends Controller
     public function userCreate(Request $request) {
         if ($request->isMethod('post')) {
             $request->validate([
-                'trans_no' => 'required',
                 'lname' => 'required',
                 'fname' => 'required',
                 'mname' => 'required',
@@ -61,7 +60,6 @@ class UserController extends Controller
                     'office_id' => $request->input('office_id'),
                     'role' => $request->input('role'),
                     'gender' => $request->input('gender'),
-                    'code_no' => $request->input('code_no'),
                     'remember_token' => Str::random(60),
                 ]);
 

@@ -160,7 +160,7 @@
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                                         Close
                                     </button>
-                                    <button type="submit" name="btn-submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-save"></i> Save
                                     </button>
                                 </div>
