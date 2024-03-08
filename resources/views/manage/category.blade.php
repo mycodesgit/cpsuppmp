@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-hover">
+                        <table id="example1" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th width="10">No</th>

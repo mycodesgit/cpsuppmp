@@ -58,16 +58,6 @@
                                         <option value="Female" {{Auth::guard('web')->user()->gender == 'Female' ? 'selected="selected"' : '' }}>Female</option>
                                     </select>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <label for="exampleInputName">Usertype:</label>
-                                    <select name="role" class="form-control">
-                                        <option disabled selected value=""> --- Select --- </option>
-                                        <option value="Administrator" {{Auth::guard('web')->user()->role == 'Administrator' ? 'selected="selected"' : '' }}>Administrator</option>
-                                        <option value="Procurement Officer" {{Auth::guard('web')->user()->role == 'Procurement Officer' ? 'selected="selected"' : '' }}>Procurement Officer</option>
-                                        <option value="Staff" {{Auth::guard('web')->user()->role == 'Staff' ? 'selected="selected"' : '' }}>Staff</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
 

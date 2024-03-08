@@ -259,7 +259,7 @@
 
 	<div></div>
 	<div class="title-form">Action Taken</div>
-	<center><span>(For use by the Budget Office)</span></center>
+	<center><span style="font-size: 9pt">(For use by the Budget Office)</span></center>
 
 	<table id="prtemplate">
 		<thead>

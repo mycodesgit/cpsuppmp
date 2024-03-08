@@ -1,6 +1,6 @@
 $(document).on('click', '.prreq-delete', function(e) {
     var id = $(this).val();
-    alert(id);
+    //alert(id);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

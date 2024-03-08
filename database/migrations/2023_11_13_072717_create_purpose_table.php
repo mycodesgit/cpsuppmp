@@ -16,10 +16,14 @@ return new class extends Migration
         Schema::create('purpose', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('camp_id');
             $table->string('office_id');
             $table->string('transaction_no');
+            $table->string('pr_no');
+            $table->enum('type_request', ['1'])->default('1');
+            $table->integer('cat_id')->nullable();
             $table->string('purpose_name');
-            $table->string('pstatus');
+            $table->enum('pstatus', ['1','2','3','4','5','6','7','8','9'])->default('1');
             $table->rememberToken();
             $table->timestamps();
         });

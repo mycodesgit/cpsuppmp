@@ -12,23 +12,20 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#modal-purpose">
-                            <i class="fas fa-plus"></i> Add New
-                        </button>
+                        Request List
                     </h3>
                 </div>
-
-                <!-- Modal -->
-                @include('request.add.modal')
                 <div class="card-body">
                     <div>
-                        <table id="example1" class="table table-bordered table-hover">
-                            <thead>
+                        <table id="example1" class="table table-hover">
+                            <thead class="bg-light">
                                 <tr>
                                     <th width="5%">No</th>
+                                    <th>Type of Request</th>
+                                    <th>Category</th>
                                     <th>Purpose</th>
-                                    <th>Status</th>
                                     <th>Date</th>
+                                    <th>Status</th>
                                     <th width="10%">Action</th>
                                 </tr>
                             </thead>
@@ -37,6 +34,27 @@
                                 @foreach($repurpose as $data)
                                 <tr id="tr-{{ $data->id }}">
                                     <td>{{ $no++ }}</td>
+                                    <td>
+                                        @php
+                                            switch($data->type_request) {
+                                                case 1:
+                                                    echo 'PR';
+                                                    break;
+                                                case 2:
+                                                    echo 'POW';
+                                                    break;
+                                                case 3:
+                                                    echo 'Letter Request';
+                                                    break;
+                                                case 4:
+                                                    echo 'Others';
+                                                    break;
+                                                default:
+                                                    echo 'Unknown';
+                                            }
+                                        @endphp
+                                    </td>
+                                    <td>{{ $data->category_name }}</td>
                                     <td>{{ $data->purpose_name }}</td>
                                     <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
                                     <td>
@@ -60,8 +78,8 @@
                                         @endphp
                                     </td>
                                     <td>
-                                        <a href="{{ route('prCreateRequest', encrypt($data->id)) }}" class="btn btn-info btn-xs btn-edit" data-id="{{ $data->id }}">
-                                            <i class="fas fa-exclamation-circle"></i>
+                                        <a href="{{ route('selectItems', encrypt($data->purpose_Id)) }}" class="btn btn-default green btn-sm btn-view">
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -74,60 +92,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function itemList(val){
-        alert(val);
-    }
-</script>
-
-<script>
-function formatNumber(input) {
-    const value = input.value.replace(/[^\d.]/g, '');
-    const formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    input.value = formattedValue;
-}
-</script>
-
-<script>
-function calculateTotalCost() {
-    const qtyInput = document.getElementsByName('qty')[0];
-    const itemCostInput = document.getElementsByName('item_cost')[0];
-    const qty = parseFloat(qtyInput.value) || 0;
-    const itemCost = parseFloat(itemCostInput.value.replace(/[^\d.]/g, '')) || 0;
-    const totalCost = qty * itemCost;
-    const formattedTotalCost = totalCost.toLocaleString();
-    document.getElementsByName('total_cost')[0].value = formattedTotalCost;
-}
-</script>
-
-<script>
-function categor(val) {
-    var categoryId = val;
-
-    var urlTemplate = "{{ route('getItemsByCategory', [':id']) }}";
-    var url = urlTemplate.replace(':id', categoryId);
-    
-    if (categoryId) {
-        $.ajax({
-            url: url,
-            type: "GET",
-            success: function(response) {
-                console.log(response);
-                $('#item').empty();
-                $('#item').append("<option value=''></option>");
-                $('#item').append(response.options);
-            }
-        })
-        $("#item").on("change", function() {
-            var selectedCategory = $(this).find(':selected');
-            var selectedItemId = selectedCategory.val();
-            var item_cost = selectedCategory.data('item-cost');
-            $("#item_cost").val(item_cost);
-        });
-    }
-};
-</script>
 
 
 

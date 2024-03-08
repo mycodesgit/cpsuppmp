@@ -16,7 +16,9 @@ class ItemController extends Controller
     public function itemRead() {
         $category = Category::all();
         $unit = Unit::all();
-        $item = Item::all();
+        $item = Item::join('unit', 'item.unit_id', '=', 'unit.id')
+                ->join('category', 'item.category_id', '=', 'category.id')
+                ->get();
 
         return view('manage.item', compact('category', 'unit', 'item'));
     }

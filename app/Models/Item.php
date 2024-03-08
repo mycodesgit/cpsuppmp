@@ -13,11 +13,11 @@ class Item extends Model
     protected $table = 'item';
 
     protected $fillable = [
-        'item_name',
         'item_descrip',
         'item_cost',
         'category_id',
         'unit_id',
+        'uname',
         'remember_token',
     ];
 }

@@ -8,10 +8,7 @@
     <div class="row" style="padding-top: 100px;">
         <div class="col-lg-2">
             <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 17pt"></h5>
-                    @include('partials.control_requestSidebar')
-                </div>
+                @include('partials.control_requestSidebar')
             </div>
         </div>
         <div class="col-lg-10">

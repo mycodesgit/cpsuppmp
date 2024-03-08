@@ -14,8 +14,12 @@ class Purpose extends Model
 
     protected $fillable = [
         'user_id',
+        'camp_id',
         'office_id',
         'transaction_no',
+        'pr_no',
+        'type_request',
+        'cat_id',
         'purpose_name',
         'pstatus',
         'remember_token',

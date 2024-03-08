@@ -45,7 +45,7 @@
             position: fixed;
             width: 100%;
             height: 100%;
-            background-color: #5f6f81;
+            background-color: #6c9076;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 100%;

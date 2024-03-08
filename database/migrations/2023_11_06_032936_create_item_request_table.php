@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('user_id');
             $table->string('off_id');
+            $table->string('campid');
             $table->string('date_approve_pending');
             $table->rememberToken();
             $table->timestamps();

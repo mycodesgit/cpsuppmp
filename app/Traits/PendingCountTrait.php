@@ -17,7 +17,14 @@ trait PendingCountTrait
     {
         return Purpose::join('office', 'purpose.office_id', '=', 'office.id')
             ->select('purpose.*', 'purpose.id as pid', 'office.*', 'office.id as oid')
-            ->where('purpose.pstatus', '=', '2')
+            ->whereIn('purpose.pstatus', ['2', '3', '4', '5'])
+            ->count();
+    }
+    public function getPendingBudgetCount()
+    {
+        return Purpose::join('office', 'purpose.office_id', '=', 'office.id')
+            ->select('purpose.*', 'purpose.id as pid', 'office.*', 'office.id as oid')
+            ->whereIn('purpose.pstatus', ['6'])
             ->count();
     }
     public function getPendingUserCount()
@@ -25,7 +32,7 @@ trait PendingCountTrait
         $userId = Auth::id();
         return Purpose::join('office', 'purpose.office_id', '=', 'office.id')
             ->join('users', 'purpose.user_id', '=', 'users.id')
-            ->where('purpose.pstatus', '=', '2')
+            ->whereIn('purpose.pstatus', ['2', '3', '4', '5', '6'])
             ->where('purpose.user_id', '=', $userId)
             ->count();
     }

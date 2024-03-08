@@ -23,6 +23,7 @@ class RequestItem extends Model
         'total_cost',
         'user_id',
         'off_id',
+        'campid',
         'status',
         'date_approve_pending',
         'remember_token',

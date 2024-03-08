@@ -163,132 +163,36 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th class="text-item">Notebook Ultra 3K - 11th Gen Intel Core I9-11300H, 3.1 GHz, 512 GB SSD, 8 GB RAM, Windows 11 Home, Lithium-ion Battery Lasts Up To 12 Hours</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
-			<tr>
-				<th class="cell-bold-left">1</th>
-				<th>Box</th>
-				<th>Laptop - Core i5</th>
-				<th>1</th>
-				<th>22, 000</th>
-				<th class="cell-bold-right">22, 000</th>
-			</tr>
+			@php
+				$no = 1;
+		        $maxRows = 25;
+		        $rowCount = 0;
+		        $overallTotal = 0;
+		        $grandTotal = 0;
+		    @endphp
+
+		    @php
+                $emptyRows = $maxRows - $rowCount;
+            @endphp
+
+            @for ($i = 0; $i < $emptyRows; $i++)
+                <tr>
+                    <td height="13"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endfor
 			<tr>
 				<th colspan="5" class="cell-bold-total-left" style="text-align: left;"><b>Total</b></th>
-				<th class="cell-bold-total-right"><b>330, 000</b></th>
+				<th class="cell-bold-total-right"><strong></th>
 			</tr>
 			<tr>
-				<th colspan="6" class="cell-bold-purpose">Purpose: </th>
+				<th colspan="6" class="cell-bold-purpose">
+					Purpose: 
+				</th>
 			</tr>
 			<tr>
 				<th class="cell-requested-empty"></th>
@@ -307,7 +211,7 @@
 			</tr>
 			<tr>
 				<th class="cell-requested-designation-label">Designation</th>
-				<th colspan="2" class="cell-requested-designation"><b>MIS OFFICER</b></th>
+				<th colspan="2" class="cell-requested-designation"><b></b></th>
 				<th colspan="3" class="cell-approved-designation"><b>SUC President II</b></th>
 			</tr>
 		</tbody>

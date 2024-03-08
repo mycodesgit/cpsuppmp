@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('category_id');
             $table->integer('unit_id');
-            $table->string('item_name');
+            $table->integer('uname');
+            $table->string('item_descrip');
             $table->string('item_cost');
             $table->rememberToken();
             $table->timestamps();

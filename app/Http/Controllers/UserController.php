@@ -16,7 +16,7 @@ use App\Models\Office;
 class UserController extends Controller
 {
     //
-    public function user_list() {
+    public function userRead() {
         $camp = Campus::all();
         $off = Office::all();
 
@@ -46,7 +46,7 @@ class UserController extends Controller
             $existingUser = User::where('username', $userName)->first();
 
             if ($existingUser) {
-                return redirect()->route('user_list')->with('error', 'User already exists!');
+                return redirect()->route('userRead')->with('error1', 'User already exists!');
             }
 
             try {
@@ -63,10 +63,81 @@ class UserController extends Controller
                     'remember_token' => Str::random(60),
                 ]);
 
-                return redirect()->route('user_list')->with('success', 'User stored successfully!');
+                return redirect()->route('userRead')->with('success', 'User stored successfully!');
             } catch (\Exception $e) {
-                return redirect()->route('user_list')->with('error', 'Failed to store user!');
+                return redirect()->route('userRead')->with('error', 'Failed to store user!');
             }
+        }
+    }
+
+    public function userEdit($id) {
+        $campus = Campus::all();
+        $office = Office::all();
+        $selectedUser = User::find($id);
+
+        $selectedOfficeId = $selectedUser->office_id;
+        $selectedCampusId = $selectedUser->campus_id;
+
+        return view('users.edit', compact('campus', 'office', 'selectedUser', 'selectedOfficeId', 'selectedCampusId'));
+    }
+
+    public function userUpdate(Request $request) {
+        $user = User::find($request->id);
+        
+        $request->validate([
+            'id' => 'required',
+            'lname' => 'required',
+            'fname' => 'required',
+            'mname' => 'required',
+            'office_id' => 'required',
+            'role' => 'required',
+            'gender' => 'required',
+            'campus_id' => 'required',
+        ]);
+
+        try {
+            $userName = $request->input('username');
+            $existingUser = User::where('username', $userName)->where('id', '!=', $request->input('id'))->first();
+
+            if ($existingUser) {
+                return redirect()->back()->with('error', 'Username already exists for another user!');
+            }
+
+            $user = User::findOrFail($request->input('id'));
+            $user->update([
+                'lname' => $request->input('lname'),
+                'fname' => $request->input('fname'),
+                'mname' => $request->input('mname'),
+                'username' => $userName,
+                'office_id' => $request->input('office_id'),
+                'role' => $request->input('role'),
+                'gender' => $request->input('gender'),
+                'campus_id' => $request->input('campus_id'),
+            ]);
+
+            return redirect()->route('userEdit', ['id' => $user->id])->with('success', 'Updated Successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update User!');
+        }
+    }
+
+    public function userUpdatePassword(Request $request) {
+        $user = User::find($request->id);
+        
+        $request->validate([
+            'id' => 'required',
+            'password' => 'required|string|min:5',
+        ]);
+
+        try {
+            $user = User::findOrFail($request->input('id'));
+            $user->update([
+                'password' => Hash::make($request->input('password'))
+            ]);
+
+            return redirect()->route('userEdit', ['id' => $user->id])->with('success', 'Password Updated Successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update User Password!');
         }
     }
 
@@ -81,7 +152,6 @@ class UserController extends Controller
                 'fname' => 'required|string|max:255',
                 'mname' => 'required|string|max:255',
                 'username' => 'required|string|max:255|unique:users,username,' . Auth::id(),
-                'role' => 'required',
                 'gender' => 'required',
             ]);
 
@@ -90,7 +160,6 @@ class UserController extends Controller
                 'fname' => $request->input('fname'),
                 'mname' => $request->input('mname'),
                 'username' => $request->input('username'),
-                'role' => $request->input('role'),
                 'gender' => $request->input('gender'),
             ]);
 

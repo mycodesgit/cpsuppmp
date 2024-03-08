@@ -25,8 +25,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Item Name</th>
                                     <th>Description</th>
+                                    <th>Unit</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -35,8 +37,10 @@
                                 @foreach($item as $data)
                                 <tr id="tr-{{ $data->id }}" class="{{ $cr === 'itemEdit' ? $data->id == $editItem->id ? 'bg-selectEdit' : '' : ''}}">
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $data->item_name }}</td>
                                     <td>{{ $data->item_descrip }}</td>
+                                    <td>{{ $data->unit_name }}</td>
+                                    <td>{{ $data->item_cost }}</td>
+                                    <td>{{ $data->category_name }}</td>
                                     <td>
                                         <div class="btn-group">
                                             <div class="btn-group">

@@ -17,13 +17,25 @@
             </div>
             
             <div class="modal-body">
-                <form action="{{ route('prPurposeRequestCreate') }}" class="form-horizontal" method="post" id="requestpr">
+                <form action="{{ route('prPurposeRequestCreate') }}" class="form-horizontal" method="post" id="purposepr">
                     @csrf
-
+                    
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    <input type="hidden" name="camp_id" value="{{ Auth::user()->campus_id }}">
                     <input type="hidden" name="office_id" value="{{ Auth::user()->office_id }}">
                     <input type="hidden" name="transaction_no" value="{{ Auth::user()->office->office_abbr }}-{{ Str::random(3) }}{{ rand(100, 999) }}-{{ Str::random(3) }}-{{ now()->format('Y-m-d') }}">
                     
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label>Select Category</label><br>
+                                <select class="form-control" name="cat_id" id="categorySelect" style="pointer-events: none;">
+                                    <option disabled selected>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-12">

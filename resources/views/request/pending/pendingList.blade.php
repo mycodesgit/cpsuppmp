@@ -16,15 +16,11 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        @if(request()->route()->getName() == 'pendingListRead')
-                            <table id="example1" class="table  table-hover">
-                        @else
-                            <table id="example" class="table  table-hover">
-                        @endif
+                    <div class="">
+                        <table id="example1" class="table  table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Type of Request</th>
                                     <th>Office</th>
                                     <th>Purpose</th>
                                     <th>Date</th>
@@ -33,16 +29,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $currentRoute = request()->route()->getName();
-                                @endphp
-
-                                @if ($currentRoute == 'pendingListRead')
 
                                     @php $no = 1; @endphp
                                     @foreach($reqitempurpose as $data)
                                     <tr id="tr-{{ $data->id }}">
-                                        <td>{{ $no++ }}</td>
+                                        <td>
+                                            @php
+                                                switch($data->type_request) {
+                                                    case 1:
+                                                        echo 'PR</span>';
+                                                        break;
+                                                    case 2:
+                                                        echo 'POW</span>';
+                                                        break;
+                                                    case 3:
+                                                        echo 'Letter Request';
+                                                        break;
+                                                    case 4:
+                                                        echo 'Others';
+                                                        break;
+                                                    default:
+                                                        echo 'Unknown';
+                                                }
+                                            @endphp
+                                        </td>
                                         <td>{{ $data->office_abbr }}</td>
                                         <td>{{ $data->purpose_name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
@@ -50,16 +60,22 @@
                                             @php
                                                 switch($data->pstatus) {
                                                     case 1:
-                                                        echo '<span class="badge badge-info">Ongoing</span>';
+                                                        echo '<span class="badge badge-info" style="font-size: 12px">Ongoing</span>';
                                                         break;
                                                     case 2:
-                                                        echo '<span class="badge badge-warning">Pending</span>';
+                                                        echo '<span class="badge badge-warning" style="font-size: 12px">Pending in Procurement</span>';
                                                         break;
                                                     case 3:
-                                                        echo '<span class="badge badge-danger">Decline</span>';
+                                                        echo '<span class="badge badge-danger" style="font-size: 12px">Returned to Client</span>';
                                                         break;
                                                     case 4:
-                                                        echo '<span class="badge badge-success">Accepted</span>';
+                                                        echo '<span class="badge badge-success" style="font-size: 12px">Checking PR in Procurement</span>';
+                                                        break;
+                                                    case 5:
+                                                        echo '<span class="badge badge-secondary" style="font-size: 12px">Verifying PR in PPMP</span>';
+                                                        break;
+                                                    case 6:
+                                                        echo '<span class="badge badge-success">Pending in Budget Office</span>';
                                                         break;
                                                     default:
                                                         echo '<span class="badge badge-secondary">Unknown Status</span>';
@@ -77,16 +93,16 @@
                                             @endphp
 
                                             @if ($currentRoute == 'pendingListRead')
-                                                <a href="{{ route('pendingListView', encrypt($data->pid)) }}" class="btn btn-info btn-xs btn-edit">
-                                                    <i class="fas fa-exclamation-circle"></i>
+                                                <a href="{{ route('pendingListView', encrypt($data->pid)) }}" class="btn btn-secondary btn-xs btn-edit">
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
                                             @elseif ($currentRoute == 'pendingAllListRead')
-                                                <a href="{{ route('pendingAllListView', encrypt($data->pid)) }}" class="btn btn-info btn-xs btn-edit">
-                                                    <i class="fas fa-exclamation-circle"></i>
+                                                <a href="{{ route('pendingAllListView', encrypt($data->pid)) }}" class="btn btn-secondary btn-xs btn-edit">
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ route('pendingListView', encrypt($data->pid)) }}" class="btn btn-info btn-xs btn-edit">
-                                                    <i class="fas fa-exclamation-circle"></i>
+                                                <a href="{{ route('pendingListView', encrypt($data->pid)) }}" class="btn btn-secondary btn-xs btn-edit">
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
                                             @endif
 
@@ -97,11 +113,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
-                                @elseif ($currentRoute == 'pendingAllListRead')
-
-                                @else
-                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -111,8 +122,12 @@
     </div>
 </div>
 
+@if(request()->routeIs(['pendingAllListRead']))
 <script>
     var allPendingRoute = "{{ route('getpendingAllListRead') }}";
+    var allPendingBudgetRoute = "{{ route('getpendingBudgetAllListRead') }}";
     var pendingAllListViewRoute = '{{ route('pendingAllListView', '') }}';
 </script>
+@endif
+
 @endsection

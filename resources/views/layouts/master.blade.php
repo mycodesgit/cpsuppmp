@@ -9,7 +9,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free-V6/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.css') }}">
     <!-- Toastr -->
@@ -19,11 +19,14 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('template/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset('template/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('template/dist/css/theme.min.css') }}">
 
     <!-- Logo  -->
     <link rel="shortcut icon" type="" href="{{ asset('template/img/CPSU_L.png') }}">
@@ -59,8 +62,8 @@
         }
 
         .container-fluid {
-            padding-right: 2% !important;
-            padding-left: 2% !important;
+            padding-right: 1% !important;
+            padding-left: 1% !important;
             margin-right: auto !important;
             margin-left: auto !important;
         }
@@ -121,7 +124,28 @@
             color: #fff !important;
             border-color: #04401f;
         }
-        
+        .green {
+            background-color: #04401f !important;
+            color: #fff;
+        }
+        .green:hover {
+            background-color: #187744 !important;
+            color: #fff;
+        }
+        .bg-welcome {
+            background-color: #d1f1e7 !important;
+        }
+        .col-12 {
+            transition: transform 0.1s ease;
+        }
+        .col-12:hover {
+            transform: scale(1.02);
+        }
+        .btn-success {
+            background-color: #187744  !important;
+            border-color: #187744  !important;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -138,35 +162,14 @@
                 </div> --}}
                 
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#" style="color: #fff !important">
-                            <i class="far fa-bell"></i>
-                            <span class="badge badge-warning navbar-badge">15</span>
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button" style="color: #fff !important">
+                            <i class="fas fa-expand-arrows-alt"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                                <span class="float-right text-muted text-sm">3 mins</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-users mr-2"></i> 8 friend requests
-                                <span class="float-right text-muted text-sm">12 hours</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-file mr-2"></i> 3 new reports
-                                <span class="float-right text-muted text-sm">2 days</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" style="color: #fff !important">
-                            <i class="fas fa-user"></i>&nbsp;&nbsp;Signed In: {{Auth::user()->fname}}
+                            <i class="fas fa-user"></i>&nbsp;&nbsp;Signed In: {{Auth::user()->fname}} - {{Auth::user()->office->office_abbr}}
                         </a>
                     </li>
                 </ul>
@@ -175,7 +178,7 @@
 
         <div class="content-wrapper">
             <div class="content-header">
-                <div class="container-fluid" style="margin-top: -5px">
+                <div class="container-fluid" style="margin-top: -9px">
                     @include('partials.control')
                 </div>
             </div>
@@ -192,7 +195,7 @@
    
     <footer class="main-footer">
         <div class="float-right d-none d-sm-inline ">
-            Procurement Management System
+            Purchase Request Management System
         </div>
         Developed and Maintain by <i>Management Information System Office</i>.
     </footer>
@@ -241,6 +244,7 @@
 <script src="{{ asset('js/basic/officeScript.js') }}"></script>
 <script src="{{ asset('js/basic/requestitemScript.js') }}"></script>
 
+<script src="{{ asset('js/validation/purposeValidation.js') }}"></script>
 <script src="{{ asset('js/validation/categoryValidation.js') }}"></script>
 <script src="{{ asset('js/validation/unitValidation.js') }}"></script>
 <script src="{{ asset('js/validation/itemValidation.js') }}"></script>
@@ -249,9 +253,33 @@
 <script src="{{ asset('js/validation/userValidation.js') }}"></script>
 <script src="{{ asset('js/validation/passValidation.js') }}"></script>
 
-<script src="{{ asset('js/ajax/allpending.js') }}"></script>
-<script src="{{ asset('js/ajax/allCountPending.js') }}"></script>
 
+
+@if(request()->routeIs('pendingAllListRead'))
+    <script src="{{ asset('js/ajax/allpending.js') }}"></script>
+@endif
+
+@if(request()->routeIs('pendingListRead'))
+    <script src="{{ asset('js/ajax/pending.js') }}"></script>
+@endif
+
+@if(request()->routeIs('pendingAllBudgetListRead'))
+    <script src="{{ asset('js/ajax/allpendingBudget.js') }}"></script>
+@endif
+
+@if(request()->routeIs('approvedListAllRead',))
+    <script src="{{ asset('js/ajax/allapproved.js') }}"></script>
+@endif
+
+@if(request()->routeIs('approvedListRead'))
+    <script src="{{ asset('js/ajax/alluserapproved.js') }}"></script>
+@endif
+
+<script src="{{ asset('js/ajax/allCountApproved.js') }}"></script>
+<script src="{{ asset('js/ajax/userCountApproved.js') }}"></script>
+<script src="{{ asset('js/ajax/allCountPendingB.js') }}"></script>
+<script src="{{ asset('js/ajax/userCountPending.js') }}"></script>
+<script src="{{ asset('js/ajax/allCountPending.js') }}"></script>
 
 <script>
     @if(Session::has('error'))
@@ -281,6 +309,133 @@
         }
         toastr.success("{{ session('success') }}")
     @endif
+</script>
+
+<script>
+    function resetFormFields() {
+        $('input[name="qty"]').val('');
+        $('input[name="total_cost"]').val('');
+    }
+    $(document).ready(function() {
+        $(document).on('click', '.btn-selectitem', function (e) {
+            e.preventDefault();
+
+            var itemId = $(this).data('id');
+            var itemName = $(this).closest('tr').find('td:eq(1)').text();
+            var unitId = $(this).closest('tr').find('td:eq(0)').text();
+            var unitName = $(this).closest('tr').find('td:eq(2)').text();
+            var itemCost = $(this).closest('tr').find('td:eq(3)').text();
+
+            $('input[name="item_id"]').val(itemId);
+            $('input[name="item_name"]').val(itemName);
+            $('input[name="unit_id"]').val(unitId);
+            $('input[name="unit_name"]').val(unitName);
+            $('input[name="item_cost"]').val(itemCost);
+
+            resetFormFields();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: '{{ route('getCategories') }}', 
+            dataType: 'json',
+            success: function (response) {
+                var select = $('#categorySelect');
+                select.empty();
+                select.append('<option disabled selected>Select</option>');
+                $.each(response.categories, function (index, category) {
+                    select.append('<option value="' + category.id + '">' + category.category_name + '</option>');
+                });
+            },
+            error: function (error) {
+                console.error('Error fetching categories:', error);
+            }
+        });
+
+        $('.shop-btn').on('click', function () {
+            var categoryId = $(this).data('category-id');
+            var categoryName = $(this).closest('.rounded').find('h3').text();
+            var selectedCategoryDropdown = $('#categorySelect');
+            
+            selectedCategoryDropdown.find('option[value="selectedCategory"]').remove();
+
+            if (categoryId) {
+                selectedCategoryDropdown.append('<option value="' + categoryId + '" selected>' + categoryName + '</option>');
+            } else {
+                selectedCategoryDropdown.append('<option disabled selected>Select</option>');
+            }
+        });
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<script>
+    $(document).ready(function () {
+        var currentRoute = window.location.pathname;
+        if (currentRoute === '/dashboard') {
+            AOS.init({
+                easing: 'ease-in-out-sine',
+                duration: 1000
+            });
+            const textElement = document.getElementById("typewriter-text");
+            const textToType = "ensure a smooth procurement experience.";
+            const typingSpeed = 100; 
+            const delayBetweenText = 2000;
+
+            let charIndex = 0;
+            let isTyping = true;
+
+            function typeNextCharacter() {
+                if (isTyping) {
+                    if (charIndex < textToType.length) {
+                        textElement.innerHTML += textToType.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeNextCharacter, typingSpeed);
+                    } else {
+                        isTyping = false;
+                        setTimeout(resetTypewriter, delayBetweenText);
+                    }
+                }
+            }
+
+            function resetTypewriter() {
+                textElement.innerHTML = "";
+                charIndex = 0;
+                isTyping = true;
+                typeNextCharacter();
+            }
+
+            typeNextCharacter();
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+    // Event handler for when the modal is shown
+    $('#modal-userppmp').on('shown.bs.modal', function (e) {
+        // Get the categories data from the button's data attribute
+        var categoriesData = $(e.relatedTarget).data('categories');
+
+        // Parse the JSON data
+        var categories = JSON.parse(categoriesData);
+
+        // Set the selected options in the <select> element
+        $(this).find('select[name="ppmp_categories[]"]').val(categories).trigger('change.select2');
+    });
+});
+
 </script>
 
 </body>

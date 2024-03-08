@@ -5,33 +5,41 @@
     <div class="row" style="padding-top: 100px;">
         <div class="col-lg-2">
             <div class="card">
-                @include('partials.control_requestSidebar')
+                @if(Auth::user()->role=='Budget Officer')
+                    @include('partials.control_requestBudSidebar')
+                @else
+                    @include('partials.control_requestSidebar')
+                @endif
             </div>
         </div>
         <div class="col-lg-10">
             <div class="card card-success card-outline card-outline-tabs">
                 <div class="card-header p-0 border-bottom-0">
-                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                    <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
                         <li class="nav-item ml-1">
                             <a class="nav-link active" id="custom-tabs-one-tab" data-toggle="pill" href="#custom-tabs-one" role="tab" aria-controls="custom-tabs-one" aria-selected="true">Table</a>
                         </li>
                         <li class="nav-item ml-1">
-                            <a class="nav-link" id="custom-tabs-two-tab" data-toggle="pill" href="#custom-tabs-two" role="tab" aria-controls="custom-tabs-two" aria-selected="false">PDF</a>
+                            <a class="nav-link" id="custom-tabs-two-tab" data-toggle="pill" href="#custom-tabs-two" role="tab" aria-controls="custom-tabs-two" aria-selected="false">Purchase Request PDF</a>
+                        </li>
+
+                        <li class="nav-item ml-1">
+                            <a class="nav-link" id="custom-tabs-three-tab" data-toggle="pill" href="#custom-tabs-three" role="tab" aria-controls="custom-tabs-three" aria-selected="false">Receipt & Action Slip</a>
                         </li>
                         
                         @if(Auth::user()->role =='Budget Officer')
                         <li class="nav-item ml-1">
-                            <a class="nav-link" id="custom-tabs-three-tab" data-toggle="pill" href="#custom-tabs-three" role="tab" aria-controls="custom-tabs-three" aria-selected="false">Remarks</a>
+                            <a class="nav-link" id="custom-tabs-four-tab" data-toggle="pill" href="#custom-tabs-four" role="tab" aria-controls="custom-tabs-four" aria-selected="false">Remarks</a>
                         </li>
                         @endif
 
                         <li class="nav-item ml-1">
-                            <a class="nav-link" id="custom-tabs-four-tab" data-toggle="pill" href="#custom-tabs-four" role="tab" aria-controls="custom-tabs-four" aria-selected="false">Track</a>
+                            <a class="nav-link" id="custom-tabs-five-tab" data-toggle="pill" href="#custom-tabs-five" role="tab" aria-controls="custom-tabs-five" aria-selected="false">Track</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                    <div class="tab-content" id="custom-tabs-five-tabContent">
                         <div class="tab-pane fade show active" id="custom-tabs-one" role="tabpanel" aria-labelledby="custom-tabs-one-tab">
                             <table id="" class="table table-bordered table-hover">
                                 <thead>
@@ -70,21 +78,36 @@
                         </div>
 
                         <div class="tab-pane fade" id="custom-tabs-two" role="tabpanel" aria-labelledby="custom-tabs-two-tab" style="margin-top: -15px">
-                            <iframe src="{{ route('PDFprApproved', encrypt($data['purpose_id'])) }}" width="100%" height="500"></iframe>
+                            @php
+                                $currentRoute = request()->route()->getName();
+                            @endphp
+
+                            @if ($currentRoute == 'approvedListView')
+                                <iframe src="{{ route('PDFprApproved', encrypt($data['purpose_id'])) }}" width="100%" height="500"></iframe>
+                            @elseif ($currentRoute == 'approvedAllListView')
+                                <iframe src="{{ route('PDFprAllApproved', encrypt($data['purpose_id'] ?? '')) }}" width="100%" height="500"></iframe>
+                            @else
+                                <iframe src="{{ route('PDFprApproved', encrypt($data['purpose_id'])) }}" width="100%" height="500"></iframe>
+                            @endif
                         </div>
 
-                        <div class="tab-pane fade" id="custom-tabs-three" role="tabpanel" aria-labelledby="custom-tabs-three-tab">
+                        <div class="tab-pane fade" id="custom-tabs-three" role="tabpanel" aria-labelledby="custom-tabs-three-tab" style="margin-top: -15px">
+                            @php
+                                $currentRoute = request()->route()->getName();
+                            @endphp
+
+                            @if ($currentRoute == 'approvedListView')
+                                <iframe src="{{ route('PDFrbarasApproved', encrypt($data['purpose_id'])) }}" width="100%" height="600"></iframe>
+                            @elseif ($currentRoute == 'approvedAllListView')
+                                <iframe src="{{ route('PDFrbarasAllApproved', encrypt($data['purpose_id'] ?? '')) }}" width="100%" height="600"></iframe>
+                            @else
+                                <iframe src="{{ route('PDFrbarasApproved', encrypt($data['purpose_id'])) }}" width="100%" height="600"></iframe>
+                            @endif
+                        </div>
+
+                        <div class="tab-pane fade" id="custom-tabs-four" role="tabpanel" aria-labelledby="custom-tabs-four-tab">
                             <form action="" class="form-horizontal" method="post" id="addItem">
                                 @csrf
-                                {{-- <div class="form-group">
-                                    <div class="form-row">
-                                        <div class="col-md-12">
-                                            <label>Notes:</label>
-                                            <input type="text" name="note" value="" oninput="var words = this.value.split(' '); for(var i = 0; i < words.length; i++){ words[i] = words[i].substr(0,1).toUpperCase() + words[i].substr(1); } this.value = words.join(' ');" class="form-control">
-                                            <span style="font-size: 8pt;">(Optional)</span>
-                                        </div>
-                                    </div>
-                                </div> --}}
 
                                 <div class="form-group">
                                     <div class="form-row">
@@ -111,7 +134,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="custom-tabs-four" role="tabpanel" aria-labelledby="custom-tabs-four-tab" style="margin-top: -15px">
+                        <div class="tab-pane fade" id="custom-tabs-five" role="tabpanel" aria-labelledby="custom-tabs-five-tab" style="margin-top: -15px">
                             <div class="timeline timeline-inverse">
                                 <div class="time-label">
                                     
