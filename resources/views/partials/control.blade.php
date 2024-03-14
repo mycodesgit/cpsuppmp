@@ -8,7 +8,7 @@
             <a href="{{ route('dashboard') }}" class="btn btn-app {{$current_route=='dashboard'?'active':''}}">
                 <i class="fas fa-th"></i> Dashboard
             </a>
-            @if(Auth::user()->role=='Administrator' || Auth::user()->role=='Procurement Officer')
+            @if(Auth::user()->role=='Administrator' || Auth::user()->role=='Procurement Officer' || Auth::user()->role=='Checker')
             <a href="{{ route('categoryRead') }}" class="btn btn-app {{ request()->is('view*') ? 'active' : '' }}">
                 <i class="fas fa-list"></i> Manage
             </a>
@@ -17,12 +17,6 @@
             @if(Auth::user()->role=='Administrator' || Auth::user()->role=='Budget Officer' || Auth::user()->role=='Procurement Officer' || Auth::user()->role=='Campus Admin' || Auth::user()->role=='Dean' || Auth::user()->role=='Office Head')
                 <a href="{{ route('shop') }}" class="btn btn-app {{ request()->is('request*') ? 'active' : '' }}">
                     <i class="fas fa-server"></i> Request
-                </a>
-            @endif
-
-            @if(Auth::user()->role=='Procurement Officer')
-                <a href="" class="btn btn-app">
-                    <i class="fas fa-server"></i> Reports
                 </a>
             @endif
 
@@ -42,7 +36,13 @@
                 </a>
             @endif
 
-            @if(Auth::user()->role=='Administrator')
+            @if(Auth::user()->role=='Procurement Officer' || Auth::user()->role=='Checker')
+                <a href="{{ route('consolidateRead') }}" class="btn btn-app {{ request()->is('generate*') ? 'active' : '' }}">
+                    <i class="fas fa-file-pdf"></i> Reports
+                </a>
+            @endif
+
+            @if(Auth::user()->role=='Administrator' || Auth::user()->role=='Checker')
                 <a href="{{ route('userRead') }}" class="btn btn-app {{ request()->is('users*') ? 'active' : '' }}">
                     <i class="fas fa-users"></i> Users
                 </a>

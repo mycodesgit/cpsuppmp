@@ -10,8 +10,9 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 use App\Models\User;
-use App\Models\Campus;
 use App\Models\Office;
+use App\Models\Campus;
+use App\Models\PpmpUser;
 
 class UserController extends Controller
 {
@@ -50,6 +51,7 @@ class UserController extends Controller
             }
 
             try {
+
                 User::create([
                     'lname' => $request->input('lname'),
                     'fname' => $request->input('fname'),
@@ -60,7 +62,11 @@ class UserController extends Controller
                     'office_id' => $request->input('office_id'),
                     'role' => $request->input('role'),
                     'gender' => $request->input('gender'),
+                    'posted_by' => Auth::user()->id,
                     'remember_token' => Str::random(60),
+                ]);
+                PpmpUser::create([
+                    'user_id' => Auth::user()->id,
                 ]);
 
                 return redirect()->route('userRead')->with('success', 'User stored successfully!');
@@ -71,9 +77,10 @@ class UserController extends Controller
     }
 
     public function userEdit($id) {
+        $userID = decrypt($id);
         $campus = Campus::all();
         $office = Office::all();
-        $selectedUser = User::find($id);
+        $selectedUser = User::find($userID);
 
         $selectedOfficeId = $selectedUser->office_id;
         $selectedCampusId = $selectedUser->campus_id;
@@ -142,7 +149,7 @@ class UserController extends Controller
     }
 
     public function user_settings() {
-        return view("users.account_settings");
+        return view("info.account_settings");
     }
 
     public function user_settings_profile_update(Request $request) {

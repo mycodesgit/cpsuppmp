@@ -33,7 +33,7 @@
                                 @php $no = 1; @endphp
                                 @foreach($user as $data)
                                 <tr id="tr-{{ $data->uid }}">
-                                    <td>{{ $no++ }}</td>
+                                    <td width="10">{{ $no++ }}</td>
                                     <td>{{ $data->campus_name }}</td>
                                     <td>{{ $data->office_abbr }}</td>
                                     <td>{{ $data->lname }}</td>
@@ -41,13 +41,21 @@
                                     <td>{{ $data->mname }}</td>
                                     <td>{{ $data->username }}</td>
                                     <td>{{ $data->role }}</td>
-                                    <td>
-                                        <a href="{{ route('userEdit', ['id' => $data->id]) }}" class="btn btn-info btn-xs btn-edit">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                        </a>
-                                        <button value="{{ $data->uid }}" class="btn btn-danger btn-xs users-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                    <td width="10">
+                                        <div class="btn-group">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a href="{{ route('userEdit', ['id' => encrypt($data->uid)]) }}" class="dropdown-item btn-edit">
+                                                        <i class="fas fa-exclamation-circle"></i> Edit
+                                                    </a>
+                                                    <button value="{{ $data->id }}" class="dropdown-item users-delete">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

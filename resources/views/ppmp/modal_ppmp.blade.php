@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-userppmp{{ $data->uid }}">
+<div class="modal fade" id="modal-userppmp{{ $data->puid }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,9 +11,9 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal" action="{{ route('userppmpUpdate', ['user_id' => $data->uid]) }}" method="post" id="addUser">
+                <form class="form-horizontal" action="{{ route('userppmpUpdate', ['id' => $data->puid]) }}" method="post" id="addUser">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ $data->uid }}">
+                    <input type="text" name="id" value="{{ $data->puid }}">
 
                     <div class="form-group">
                         <div class="form-row">

@@ -63,7 +63,7 @@
                     <div class="">
                         <h1 class="" style="text-align: left;">Welcome to CPSU Purchase Request</h1>
                         <span style="text-align: left; font-family: Bookman Old Style;">
-                            Streamline your purchasing process with this <span class="text-primary">Platform</span>. Submit your requests effortlessly and <b id="typewriter-text"></b>
+                            Streamline your purchasing process with this <span class="text-primary">Platform</span>. Submit your requests effortlessly and <b>ensure a smooth procurement experience.</b>
                         </span>
                     </div>
                 </div>

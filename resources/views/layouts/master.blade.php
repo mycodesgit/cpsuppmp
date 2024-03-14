@@ -146,6 +146,22 @@
             border-color: #187744  !important;
             color: #fff;
         }
+        .page-item.active .page-link {
+            z-index: 3;
+            color: #fff !important;
+            background-color: #6c9076 !important;
+            border-color: #6c9076 !important;
+        }
+        .page-link {
+            position: relative;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #1f5036 !important;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+        }
     </style>
 </head>
 
@@ -243,6 +259,7 @@
 <script src="{{ asset('js/basic/itemScript.js') }}"></script>
 <script src="{{ asset('js/basic/officeScript.js') }}"></script>
 <script src="{{ asset('js/basic/requestitemScript.js') }}"></script>
+<script src="{{ asset('js/basic/schoolyear.js') }}"></script>
 
 <script src="{{ asset('js/validation/purposeValidation.js') }}"></script>
 <script src="{{ asset('js/validation/categoryValidation.js') }}"></script>
@@ -252,6 +269,7 @@
 <script src="{{ asset('js/validation/requestprValidation.js') }}"></script>
 <script src="{{ asset('js/validation/userValidation.js') }}"></script>
 <script src="{{ asset('js/validation/passValidation.js') }}"></script>
+<script src="{{ asset('js/validation/form1Validation.js') }}"></script>
 
 
 
@@ -275,11 +293,13 @@
     <script src="{{ asset('js/ajax/alluserapproved.js') }}"></script>
 @endif
 
-<script src="{{ asset('js/ajax/allCountApproved.js') }}"></script>
-<script src="{{ asset('js/ajax/userCountApproved.js') }}"></script>
-<script src="{{ asset('js/ajax/allCountPendingB.js') }}"></script>
-<script src="{{ asset('js/ajax/userCountPending.js') }}"></script>
-<script src="{{ asset('js/ajax/allCountPending.js') }}"></script>
+@unless(request()->is('ppmp*', 'view*', 'dashboard*', 'users*', 'generate*'))
+    <script src="{{ asset('js/ajax/allCountApproved.js') }}"></script>
+    <script src="{{ asset('js/ajax/userCountApproved.js') }}"></script>
+    <script src="{{ asset('js/ajax/allCountPendingB.js') }}"></script>
+    <script src="{{ asset('js/ajax/userCountPending.js') }}"></script>
+    <script src="{{ asset('js/ajax/allCountPending.js') }}"></script>
+@endunless
 
 <script>
     @if(Session::has('error'))
@@ -309,6 +329,50 @@
         }
         toastr.success("{{ session('success') }}")
     @endif
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<script>
+    $(document).ready(function () {
+        var currentRoute = window.location.pathname;
+        if (currentRoute === '/dashboard') {
+            AOS.init({
+                easing: 'ease-in-out-sine',
+                duration: 1000
+            });
+            const textElement = document.getElementById("typewriter-text");
+            const textToType = "ensure a smooth procurement experience.";
+            const typingSpeed = 100; 
+            const delayBetweenText = 2000;
+
+            let charIndex = 0;
+            let isTyping = true;
+
+            function typeNextCharacter() {
+                if (isTyping) {
+                    if (charIndex < textToType.length) {
+                        textElement.innerHTML += textToType.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeNextCharacter, typingSpeed);
+                    } else {
+                        isTyping = false;
+                        setTimeout(resetTypewriter, delayBetweenText);
+                    }
+                }
+            }
+
+            function resetTypewriter() {
+                textElement.innerHTML = "";
+                charIndex = 0;
+                isTyping = true;
+                typeNextCharacter();
+            }
+
+            typeNextCharacter();
+        }
+    });
 </script>
 
 <script>
@@ -374,50 +438,6 @@
                 selectedCategoryDropdown.append('<option disabled selected>Select</option>');
             }
         });
-    });
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-
-<script>
-    $(document).ready(function () {
-        var currentRoute = window.location.pathname;
-        if (currentRoute === '/dashboard') {
-            AOS.init({
-                easing: 'ease-in-out-sine',
-                duration: 1000
-            });
-            const textElement = document.getElementById("typewriter-text");
-            const textToType = "ensure a smooth procurement experience.";
-            const typingSpeed = 100; 
-            const delayBetweenText = 2000;
-
-            let charIndex = 0;
-            let isTyping = true;
-
-            function typeNextCharacter() {
-                if (isTyping) {
-                    if (charIndex < textToType.length) {
-                        textElement.innerHTML += textToType.charAt(charIndex);
-                        charIndex++;
-                        setTimeout(typeNextCharacter, typingSpeed);
-                    } else {
-                        isTyping = false;
-                        setTimeout(resetTypewriter, delayBetweenText);
-                    }
-                }
-            }
-
-            function resetTypewriter() {
-                textElement.innerHTML = "";
-                charIndex = 0;
-                isTyping = true;
-                typeNextCharacter();
-            }
-
-            typeNextCharacter();
-        }
     });
 </script>
 

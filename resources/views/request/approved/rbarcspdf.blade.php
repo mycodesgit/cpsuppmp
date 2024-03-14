@@ -160,10 +160,10 @@
 		<thead>
 			<tr>
 				<th style="text-align: left;font-size: 8pt;" width="67" height="20">PR No.</th>
-				<th style="text-align: left;font-size: 8pt;" width="273" height="20"></th>
+				<th style="text-align: left;font-size: 8pt;" width="273" height="20">{{ $reqitem->first()->pr_no }}</th>
 				<th style="text-align: center;font-size: 8pt;" width="30" height="20">Date</th>
 				<th style="text-align: left;font-size: 8pt;" height="20">
-					
+					{{ \Carbon\Carbon::parse($reqitem->first()->pur_created_at)->format('F j, Y h:i:s A') }}
 				</th>
 			</tr>
 		</thead>
@@ -172,12 +172,10 @@
 		<thead>
 			<tr>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="67">Purpose /<br>Project Title/<br>Subject</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;" width="273">@foreach($reqitem as $item){{ $item->purpose_name }} @endforeach</th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;" width="273">{{ $reqitem->first()->purpose_name }}</th>
 				<th style="text-align: center;font-size: 8pt; border-top: none;" width="30">Amount</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;">
-					PR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- P @foreach($reqitem as $item) @if ($item->type_request == 1) {{ $item->total_cost }} @endif @endforeach<br>
-					POW &nbsp;&nbsp;&nbsp;&nbsp;- P @foreach($reqitem as $item) @if ($item->type_request == 2) {{ $item->total_cost }} @endif @endforeach<br>
-					LR, etc. - P @foreach($reqitem as $item) @if ($item->type_request == 3) {{ $item->total_cost }} @endif @endforeach<br>
+					<strong>{{ number_format($reqitem->sum('total_cost'),) }}</strong>
 				</th>
 			</tr>
 		</thead>
@@ -186,7 +184,7 @@
 		<thead>
 			<tr>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="67">Requesting<br>Personnel</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;" width="273">{{ $item->fname }} {{ $item->mname }} {{ $item->lname }}</th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;" width="273">{{ $reqitem->first()->fname }} {{ $reqitem->first()->mname }} {{ $reqitem->first()->lname }}</th>
 				<th style="text-align: center;font-size: 8pt; border-top: none;" width="30">Contact No.</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;"></th>
 			</tr>
@@ -196,9 +194,9 @@
 		<thead>
 			<tr>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="11%" height="20">Campus</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;" width="24%" height="20">{{ $item->campus_name }}</th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;" width="24%" height="20">{{ $reqitem->first()->campus_name }}</th>
 				<th style="text-align: center;font-size: 8pt; border-top: none;" width="10%" height="20">Office</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;">{{ $item->office_name }}</th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;">{{ $reqitem->first()->office_name }}</th>
 			</tr>
 		</thead>
 	</table>
@@ -214,11 +212,11 @@
 					    Recommend 
 					</div>
 					<div style="margin-top: -90px; margin-left: 100px;">
-					    <input type="checkbox" name="" class="" {{ $item->pstatus == 4 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->pstatus == 7 ? 'checked' : '' }}>
 					</div>
 				</th>
 				<th style="text-align: center;font-size: 8pt;" width="11%" height="20">Comment(s) /<br>Suggestion(s)</th>
-				<th style="text-align: left;font-size: 8pt;">@if($item->pstatus == 4) {{ $item->reasons }} @endif</th>
+				<th style="text-align: left;font-size: 8pt;">@if($reqitem->first()->pstatus == 7) {{ $reqitem->first()->reasons }} @endif</th>
 			</tr>
 			<tr>
 				<th style="text-align: left;font-size: 8pt;" width="18%" height="20">
@@ -226,11 +224,11 @@
 					    Not Recommend 
 					</div>
 					<div style="margin-top: -90px; margin-left: 100px;">
-					    <input type="checkbox" name="" class="" {{ $item->pstatus == 2 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->pstatus == 5 ? 'checked' : '' }}>
 					</div>
 				</th>
 				<th style="text-align: center;font-size: 8pt;" width="11%" height="20">Reason(s)</th>
-				<th style="text-align: left;font-size: 8pt;">@if($item->pstatus == 2) {{ $item->reasons }} @endif</th>
+				<th style="text-align: left;font-size: 8pt;">@if($reqitem->first()->pstatus == 5) {{ $reqitem->first()->reasons }} @endif</th>
 			</tr>
 			<tr>
 				<th style="text-align: left;font-size: 8pt;" width="18%" height="20">
@@ -238,11 +236,11 @@
 					    Return to Client 
 					</div>
 					<div style="margin-top: -90px; margin-left: 100px;">
-					    <input type="checkbox" name="" class="" {{ $item->pstatus == 3 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->pstatus == 3 ? 'checked' : '' }}>
 					</div>
 				</th>
 				<th style="text-align: center;font-size: 8pt;" width="11%" height="20">With further /<br>Instuction(s)</th>
-				<th style="text-align: left;font-size: 8pt;">@if($item->pstatus == 3) {{ $item->reasons }} @endif</th>
+				<th style="text-align: left;font-size: 8pt;">@if($reqitem->first()->pstatus == 3) {{ $reqitem->first()->reasons }} @endif</th>
 			</tr>
 		</thead>
 	</table>
@@ -257,7 +255,7 @@
 		<thead>
 			<tr>
 				<th style="border-top: none; font-size: 8pt;" width="43"  height="20">Campus</th>
-				<th style="border-top: none; font-size: 8pt;" width="145"  height="20">{{ $item->campus_name }}</th>
+				<th style="border-top: none; font-size: 8pt;" width="145"  height="20">{{ $reqitem->first()->campus_name }}</th>
 				<th style="border-top: none; font-size: 8pt;" width="43"  height="20">Program / Activity /<br>Project</th>
 				<th style="border-top: none; font-size: 8pt;" width="180"  height="20"></th>
 			</tr>
@@ -269,19 +267,19 @@
 				<th style="border-top: none; text-align: left; font-size: 8pt;" width="46">Financing<br>Source</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="152" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->financing_source == 1 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->financing_source == 1 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    General Fund (MDS Fund)
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->financing_source == 2 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->financing_source == 2 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Off-Budget Fund
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->financing_source == 3 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->financing_source == 3 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Custodial Fund
@@ -290,37 +288,37 @@
 				<th style="border-top: none; text-align: left; font-size: 8pt;" width="46">Authorization</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="190" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_auth == 1 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_auth == 1 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    New gen. Appropriations (Current Year Budget)
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_auth == 2 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_auth == 2 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Continuing Appropriations (Prior Year's Budget)
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_auth == 3 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_auth == 3 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Special Purpose Fuunds
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_auth == 4 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_auth == 4 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Retained Income / Funds 
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_auth == 5 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_auth == 5 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Revolving Funds
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_auth == 6 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_auth == 6 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Trust Receipts
@@ -337,25 +335,25 @@
 				<th style="border-top: none; text-align: left; font-size: 8pt;" width="46">Fund Cluster</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="150" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_cluster == 1 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 1 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Regular Fund Agency
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_cluster == 2 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 2 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Internally-Generated Income
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_cluster == 3 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 3 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Business Type Income
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_cluster == 4 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 4 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Trust Fund
@@ -364,31 +362,31 @@
 				<th style="border-top: none; text-align: left; font-size: 8pt;" width="46">Fund Category</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="190" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_category == 1 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_category == 1 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Specific Budget of NGAs
 					</div>
 					<div style="margin-top: -4px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_category == 2 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_category == 2 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Special Purpose Fuunds
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_category == 3 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_category == 3 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Retained Income / Funds
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_category == 4 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_category == 4 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Revolving Funds
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $item->fund_category == 5 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_category == 5 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Trust Receipts
@@ -416,22 +414,22 @@
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="53" height="20">Allotment Class</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="80" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="">
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->allotment == 1 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    MOOE
 					</div>
 					<div style="margin-top: -4px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="">
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->allotment == 2 ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    CO
 					</div>
 				</th>
 				<th style="text-align: center;font-size: 8pt; border-top: none;" width="50" height="20">Account Code</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;"></th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;">{{ $reqitem->first()->account_code }}</th>
 				<th style="text-align: center;font-size: 8pt; border-top: none;" width="50" height="20">Amount</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;"></th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;">{{ $reqitem->first()->amount }}</th>
 			</tr>
 		</thead>
 	</table>

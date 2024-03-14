@@ -13,6 +13,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RequestPendingController;
 use App\Http\Controllers\RequestApprovedController;
 use App\Http\Controllers\PpmpController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UserController;
 
 
@@ -133,17 +134,34 @@ Route::group(['middleware'=>['login_auth']],function(){
     //View
     Route::prefix('/ppmp')->group(function () {
         Route::get('/per/year', [PpmpController::class, 'ppmpRead'])->name('ppmpRead');
-        Route::get('/per/year/{uid}', [PpmpController::class,'ppmpEdit'])->name('ppmpEdit');
+        Route::get('/per/year/{puid}', [PpmpController::class,'ppmpEdit'])->name('ppmpEdit');
         Route::post('/per/year/update', [PpmpController::class, 'userppmpUpdate'])->name('userppmpUpdate');
+    });
+
+    //Reports
+    Route::prefix('/generate')->group(function () {
+        Route::get('/list/option',[ReportsController::class,'consolidateRead'])->name('consolidateRead');
+        Route::get('/list/reports/generate', [ReportsController::class,'consolidateGen_reports'])->name('consolidateGen_reports');
+        Route::post('/list/reports/generate/PDF', [ReportsController::class, 'consolidatePDFGen_reports'])->name('consolidatePDFGen_reports');
+
+        Route::get('/list/option/form2',[ReportsController::class,'consolidateForm2Read'])->name('consolidateForm2Read');
+        Route::get('/list/reports/form2/generate', [ReportsController::class,'consolidateGenform2_reports'])->name('consolidateGenform2_reports');
+        Route::post('/list/reports/form2/generate/PDF', [ReportsController::class, 'consolidatePDFGenform2_reports'])->name('consolidatePDFGenform2_reports');
     });
 
     //Users
     Route::prefix('/users')->group(function () {
         Route::get('/list',[UserController::class,'userRead'])->name('userRead');
         Route::post('/list/add', [UserController::class, 'userCreate'])->name('userCreate');
-        Route::get('users/edit/{id}', [UserController::class, 'userEdit'])->name('userEdit');
-        Route::post('users/update', [UserController::class, 'userUpdate'])->name('userUpdate');
-        Route::post('users/updatePass', [UserController::class, 'userUpdatePassword'])->name('userUpdatePassword');
+        Route::get('list/edit/{id}', [UserController::class, 'userEdit'])->name('userEdit');
+        Route::post('list/update', [UserController::class, 'userUpdate'])->name('userUpdate');
+        Route::post('list/updatePass', [UserController::class, 'userUpdatePassword'])->name('userUpdatePassword');
+        Route::get('/account-settings',[UserController::class,'user_settings'])->name('user_settings');
+        Route::post('/account-settings/information/update',[UserController::class,'user_settings_profile_update'])->name('user_settings_profile_update');
+        Route::post('/acccount-settings/information/updatePass',[UserController::class,'profilePassUpdate'])->name('profilePassUpdate');
+    });
+
+    Route::prefix('/info')->group(function () {
         Route::get('/account-settings',[UserController::class,'user_settings'])->name('user_settings');
         Route::post('/account-settings/information/update',[UserController::class,'user_settings_profile_update'])->name('user_settings_profile_update');
         Route::post('/acccount-settings/information/updatePass',[UserController::class,'profilePassUpdate'])->name('profilePassUpdate');

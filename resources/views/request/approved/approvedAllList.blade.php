@@ -24,8 +24,8 @@
                         <table id="prapproved" class="table  table-hover">
                             <thead>
                                 <tr>
-                                    {{-- <th>Receipt Control</th> --}}
                                     <th>Campus</th>
+                                    <th>PR No.</th>
                                     <th>Type of Request</th>
                                     <th>Office</th>
                                     <th>Purpose</th>

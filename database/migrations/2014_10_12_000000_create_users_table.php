@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role');
             $table->string('gender');
+            $table->int('posted_by');
             $table->rememberToken();
             $table->timestamps();
         });

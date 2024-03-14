@@ -25,17 +25,17 @@ class PpmpController extends Controller
     public function ppmpRead() {
         $categories = Category::all();
 
-        $userppmp = User::join('campuses', 'users.campus_id', '=', 'campuses.id')
+        $userppmp = PpmpUser::join('users', 'ppmpuser.user_id', '=', 'users.id')
+            ->join('campuses', 'users.campus_id', '=', 'campuses.id')
             ->join('office', 'users.office_id', '=', 'office.id')
-            ->leftJoin('ppmpuser', 'users.id', '=', 'ppmpuser.user_id')
-            ->select('users.id as uid', 'users.*', 'campuses.*', 'office.*', 'ppmpuser.*')
+            ->select('ppmpuser.*', 'ppmpuser.id as puid', 'users.*', 'campuses.*', 'office.*', )
             ->get();
         
         return view ("ppmp.list_officeppmp", compact('categories', 'userppmp'));
     }
 
-    public function ppmpEdit($uid) {
-        $userppmp = PpmpUser::findOrFail($uid);
+    public function ppmpEdit($puid) {
+        $userppmp = PpmpUser::find($puid);
         $categories = Category::all();
 
         return view('ppmp.list_officeppmp', compact('userppmp', 'categories'));
@@ -47,7 +47,7 @@ class PpmpController extends Controller
         ]);
 
         try {
-            $userppmp = PpmpUser::findOrFail($request->input('user_id'));
+            $userppmp = PpmpUser::findOrFail($request->input('id'));
             $userppmp->update([
                 'ppmp_categories' => $request->input('ppmp_categories')
             ]);

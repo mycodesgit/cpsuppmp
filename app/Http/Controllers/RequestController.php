@@ -103,7 +103,8 @@ class RequestController extends Controller
             $year = Carbon::now()->format('Y');
             $prnumber = '';
 
-            $latestPrnumber = Purpose::where('pr_no', $prnumber)->latest('created_at')->first();
+            //$latestPrnumber = Purpose::where('pr_no', $prnumber)->latest('created_at')->first();
+            $latestPrnumber = Purpose::where('pr_no', 'like', $year . '%')->latest('created_at')->first();
 
             if (empty($latestPrnumber) || date('Y', strtotime($latestPrnumber->created_at)) < $year) {
                 $latestId = 0;

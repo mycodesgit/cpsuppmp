@@ -12,6 +12,7 @@
                 // {data: 'id', name: 'id', orderable: false, searchable: false},
                 // {data: 'receipt_control'},
                 {data: 'campus_abbr'},
+                {data: 'pr_no'},
                 {data: 'type_request',
                         render: function(data, type, row) {
                         switch(parseInt(data)) {
@@ -51,6 +52,8 @@
                                 return '<span class="badge badge-danger">Decline</span>';
                             case 7:
                                 return '<span class="badge badge-success">PR has been Approved</span>';
+                            case 8:
+                                return '<span class="badge badge-primary">PR has been Received</span>';
                             default:
                                 return '<span class="badge badge-secondary">Unknown Status</span>';
                         }
@@ -59,10 +62,21 @@
                 {data: 'pid',
                     render: function(data, type, row) {
                         if (type === 'display') {
-                            var link = '<a href="' + approvedAllListViewRoute + '/' + data + '" class="btn btn-success btn-xs btn-edit">' +
-                                '<i class="fas fa-eye"></i> View PR' +
-                                '</a>';
-                            return link;
+                            var dropdown = '<div class="d-inline-block">' +
+                                '<a class="btn btn-success btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown"></a>' +
+                                '<div class="dropdown-menu">' +
+                                    '<a href="' + approvedAllListViewRoute + '/' + data + '" class="dropdown-item btn-edit">' +
+                                        '<i class="fas fa-eye"></i> View PR' +
+                                    '</a>' +
+                                    '<a href="' + approvedAllListViewRoute + '/' + data + '" class="dropdown-item btn-edit">' +
+                                        '<i class="fas fa-eye"></i> Received PR' +
+                                    '</a>' +
+                                    '<a href="' + approvedAllListViewRoute + '/' + data + '" class="dropdown-item btn-edit">' +
+                                        '<i class="fas fa-trash"></i> Purchase' +
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
+                            return dropdown;
                         } else {
                             return data;
                         }

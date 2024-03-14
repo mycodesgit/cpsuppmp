@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'role',
         'gender',
+        'posted_by',
         'remember_token',
     ];
 

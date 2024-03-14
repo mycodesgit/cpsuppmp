@@ -47,7 +47,7 @@
                                                 <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown">
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a href="{{ route('itemEdit', $data->id) }}" class="dropdown-item btn-edit" data-id="{{ $data->id }}">
+                                                    <a href="{{ route('itemEdit', ['id' => $data->id]) }}" class="dropdown-item btn-edit" data-id="{{ $data->id }}">
                                                         <i class="fas fa-exclamation-circle"></i> Edit
                                                     </a>
                                                     <button value="{{ $data->id }}" class="dropdown-item item-delete">
@@ -107,15 +107,6 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                    <label>Item Name:</label>
-                                    <input type="text" name="item_name" value="{{ $cr === 'itemEdit' ? $editItem->item_name : '' }}" oninput="var words = this.value.split(' '); for(var i = 0; i < words.length; i++){ words[i] = words[i].substr(0,1).toUpperCase() + words[i].substr(1); } this.value = words.join(' ');" class="form-control">
                                 </div>
                             </div>
                         </div>

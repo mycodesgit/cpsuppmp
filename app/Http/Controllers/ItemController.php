@@ -54,11 +54,13 @@ class ItemController extends Controller
         $category = Category::all();
         $unit = Unit::all();
         $item = Item::join("category", "item.category_id", "=", "category.id")
-            ->select('item.*', 'category.category_name', 'item.id as itemID')
+            ->join("unit", "item.unit_id", "=", "unit.id")
+            ->select('item.*', 'category.category_name', 'unit.*', 'item.id as itid')
             ->get();
 
         $editItem = Item::join("category", "item.category_id", "=", "category.id")
-            ->select('item.*', 'category.category_name', 'item.id as itemID')
+            ->join("unit", "item.unit_id", "=", "unit.id")
+            ->select('item.*', 'category.category_name', 'unit.*', 'item.id as itid')
             ->where('item.id', $id)
             ->first();
 

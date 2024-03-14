@@ -38,7 +38,7 @@
                             <tbody id="tbody">
                                 @php $no = 1; @endphp
                                 @foreach($userppmp as $data)
-                                <tr id="tr-{{ $data->uid }}">
+                                <tr id="tr-{{ $data->puid }}">
                                     <td width="15">{{ $no++ }}</td>
                                     <td>{{ $data->campus_name }}</td>
                                     <td>{{ $data->office_abbr }}</td>
@@ -46,7 +46,7 @@
                                     <td>
                                         @if($data->ppmp_categories)
                                             @foreach(json_decode($data->ppmp_categories) as $categoryId)
-                                                <span class="badge badge-info">{{ \App\Models\Category::find($categoryId)->category_name }}</span>,
+                                                <span class="badge badge-secondary">{{ \App\Models\Category::find($categoryId)->category_name }}</span>,
                                             @endforeach
                                         @endif
                                     </td>
@@ -54,8 +54,8 @@
                                     <td width="15">
                                         <button class="btn btn-success btn-xs btn-edit"
                                             data-toggle="modal"
-                                            data-target="#modal-userppmp{{ $data->uid }}"
-                                            data-event-id="{{ $data->uid }}"
+                                            data-target="#modal-userppmp{{ $data->puid }}"
+                                            data-event-id="{{ $data->puid }}"
                                             data-categories="{{ json_encode($data->ppmp_categories) }}">
                                             <i class="fas fa-exclamation-circle"></i>
                                         </button>
