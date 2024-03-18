@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" action="{{ route('userppmpUpdate', ['id' => $data->puid]) }}" method="post" id="addUser">
                     @csrf
-                    <input type="text" name="id" value="{{ $data->puid }}">
+                    <input type="hidden" name="id" value="{{ $data->puid }}">
 
                     <div class="form-group">
                         <div class="form-row">
