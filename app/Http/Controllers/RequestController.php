@@ -22,6 +22,7 @@ use App\Models\Item;
 use App\Models\Office;
 use App\Models\Purpose;
 use App\Models\RequestItem;
+use App\Models\DocFile;
 use App\Models\User;
 
 class RequestController extends Controller
@@ -146,6 +147,11 @@ class RequestController extends Controller
                     'camp_id' => $request->input('camp_id'),
                     'office_id' => $request->input('office_id'),
                     'purpose_id' => $purpose->id,
+                    'remember_token' => Str::random(60),
+                ]);
+                DocFile::create([
+                    'purpose_id' => $purpose->id,
+                    'user_id' => $request->input('user_id'),
                     'remember_token' => Str::random(60),
                 ]);
     
@@ -302,6 +308,23 @@ class RequestController extends Controller
 
         Purpose::whereIn('id', $updatedRequestItems->pluck('purpose_id'))
             ->update(['pstatus' => '2']); 
+
+        if ($request->hasFile('doc_file')) {
+            $file = $request->file('doc_file');
+            $userLastName = Auth::user()->lname;
+            $currentDate = now()->format('Ymd');
+            $filename = $userLastName . '-pow-' . $currentDate;
+            $extension = $file->getClientOriginalExtension();
+            $filenameWithExtension = $filename . '.' . $extension;
+            $path = $file->storeAs('pow', $filenameWithExtension, 'public');
+            $docFile = DocFile::where('purpose_id', $purpose_id)->first();
+            if (!$docFile) {
+                $docFile = new DocFile();
+                $docFile->purpose_id = $purpose_id;
+            }
+            $docFile->doc_file = $path;
+            $docFile->save();
+        }
 
         return redirect()->route('pendingListRead')->with('success', 'PR Submit Successfully');
     }

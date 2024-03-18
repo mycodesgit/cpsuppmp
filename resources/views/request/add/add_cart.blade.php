@@ -160,10 +160,15 @@
                                 </div>
                             </div>
                             <hr>
-                            
-                            <form id="updateStatusForm" action="{{ route('savePR') }}" method="POST">
+
+                            <form id="updateStatusForm" action="{{ route('savePR') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="purpose_id" value="{{ request('purpose_Id') }}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="file" name="doc_file" class="form-control form-control-sm" id="fileInput" accept=".pdf" onchange="handleFileUpload()">
+                                    </div>
+                                </div>
                                 <button class="btn btn-success float-right">
                                     <i class="fas fa-save"></i> Submit PR
                                 </button>

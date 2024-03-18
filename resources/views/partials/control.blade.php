@@ -32,7 +32,7 @@
                 </a>
 
                 <a href="{{ route('ppmpRead') }}" class="btn btn-app {{ request()->is('ppmp*') ? 'active' : '' }}">
-                    <i class="fas fa-server"></i> PPMP
+                    <i class="fas fa-file"></i> PPMP
                 </a>
             @endif
 
