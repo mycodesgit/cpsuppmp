@@ -260,6 +260,7 @@
 <script src="{{ asset('js/basic/officeScript.js') }}"></script>
 <script src="{{ asset('js/basic/requestitemScript.js') }}"></script>
 <script src="{{ asset('js/basic/schoolyear.js') }}"></script>
+<script src="{{ asset('js/basic/contextmenu.js') }}"></script>
 
 <script src="{{ asset('js/validation/purposeValidation.js') }}"></script>
 <script src="{{ asset('js/validation/categoryValidation.js') }}"></script>
