@@ -401,9 +401,9 @@
 		<thead>
 			<tr>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="53" height="20">Specific Fund/<br>Income Source</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;" width="171" height="20"></th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;" width="171" height="20">{{ $reqitem->first()->specific_fund }}</th>
 				<th style="text-align: center;font-size: 8pt; border-top: none;" width="50" height="20">Purpose/Project</th>
-				<th style="text-align: left;font-size: 8pt; border-top: none;"></th>
+				<th style="text-align: left;font-size: 8pt; border-top: none;">{{ $reqitem->first()->purproject }}</th>
 			</tr>
 		</thead>
 	</table>
@@ -438,7 +438,7 @@
 		<thead>
 			<tr>
 				<th rowspan="" style="border-top: none; border-bottom: none; font-size: 8pt; text-align: left;" width="20%"  height="20">
-					Allotment / Budget Avable: P _____________________<br>
+					Allotment / Budget Available: P <u>{{ $reqitem->first()->allotbuget }}</u><br>
 					maximum only.
 				</th>
 			</tr>

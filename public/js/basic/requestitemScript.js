@@ -25,13 +25,13 @@ $(document).on('click', '.prreq-delete', function(e) {
                     Swal.fire({
                         title: 'Deleted!',
                         text: 'Successfully Deleted!',
-                        type: 'success',
                         icon: 'warning',
                         showConfirmButton: false,
                         timer: 1000
                     });
 
                     $('#granTotal').text(response.totalamount);
+                    $('#cart').DataTable().ajax.reload();
                 }
             });
         }

@@ -356,4 +356,21 @@ class RequestApprovedController extends Controller
         $pdf = PDF::loadView('request.approved.rbarcspdf',  $data)->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
+
+    public function receivedPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 7)
+            ->where('purpose_id', $id)
+            ->update(['status' => 8]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  8]);
+
+        return response()->json(['success' => true]);
+    }
+    public function getUserRole()
+    {
+        $role = Auth::user()->role;
+        return response()->json(['role' => $role]);
+    }
 }

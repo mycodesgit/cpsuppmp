@@ -36,7 +36,7 @@
                 </a>
             @endif
 
-            @if(Auth::user()->role=='Procurement Officer' || Auth::user()->role=='Checker')
+            @if(Auth::user()->role=='Administrator' || Auth::user()->role=='Procurement Officer' || Auth::user()->role=='Checker')
                 <a href="{{ route('consolidateRead') }}" class="btn btn-app {{ request()->is('generate*') ? 'active' : '' }}">
                     <i class="fas fa-file-pdf"></i> Reports
                 </a>

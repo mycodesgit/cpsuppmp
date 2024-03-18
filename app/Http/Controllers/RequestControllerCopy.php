@@ -197,29 +197,40 @@ class RequestController extends Controller
         return view ("request.add.add_cart", compact('items', 'userId', 'data', 'purpose', 'selecteditem'));
     }
 
-    public function getcartitemListRead($purpose_Id) {
-        $userId = Auth::id();
-        $purpose_id = decrypt($purpose_Id);
-        $purpose = Purpose::find($purpose_id);
-        $data = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
-            ->join('item', 'item_request.item_id', '=', 'item.id')
-            ->join('office', 'item_request.off_id', '=', 'office.id')
-            ->join('unit', 'item_request.unit_id', '=', 'unit.id')
-            ->select('item_request.*', 
-                    'category.category_name', 'item.*',
-                    'unit.unit_name', 
-                    'item_request.id as iid' )
-            ->where('item_request.status', '=', '1')
-            ->where('item_request.purpose_id', '=',  $purpose_id)
-            ->where('item_request.user_id', '=',  $userId)
-            ->orderBy('item_request.created_at', 'ASC')
-            ->get();
+    // public function prCreateRequest($purpose_Id) {
+    //     $userId = Auth::id();
+    //     $category = Category::all();
+    //     $unit = Unit::all();
+    //     $item = Item::all();
 
-        foreach ($data as $record) {
-            $record->pid = encrypt($record->pid);
-        }
-        return response()->json(['data' => $data]);
-    }
+    //     $purpose_id = decrypt($purpose_Id);
+    //     $purpose = Purpose::find($purpose_id);
+
+    //     $reqitem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
+    //         ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
+    //         ->join('item', 'item_request.item_id', '=', 'item.id')
+    //         ->join('office', 'item_request.off_id', '=', 'office.id')
+    //         ->select('item_request.*', 
+    //                 'category.category_name', 
+    //                 'unit.unit_name', 'item.*', 
+    //                 'item_request.id as iid' )
+    //         ->where('item_request.status', '=', '1')
+    //         ->where('item_request.purpose_id', '=',  $purpose_id)
+    //         ->where('item_request.user_id', '=',  $userId)
+    //         ->get();
+
+    //     $pendCount = $this->getPendingAllCount();
+    //     $pendUserCount = $this->getPendingUserCount();
+    //     $approvedCount = $this->getApprovedAllCount();
+    //     $approvedUserCount = $this->getApprovedUserCount();
+    //     $data = [   'pendCount' => $pendCount, 
+    //                 'pendUserCount' => $pendUserCount,
+    //                 'approvedCount' => $approvedCount, 
+    //                 'approvedUserCount' => $approvedUserCount,
+    //             ];
+
+    //     return view ("request.add.add_newpr", compact('category', 'unit', 'item', 'reqitem', 'purpose', 'data'));
+    // }
 
     public function prCreate(Request $request) {
         if ($request->isMethod('post')) {
@@ -239,7 +250,7 @@ class RequestController extends Controller
                 $itemCost = str_replace(',', '', $request->input('item_cost'));
                 $totalCost = str_replace(',', '', $request->input('total_cost'));
 
-                RequestItem::create([
+                $newlyCreatedItem = RequestItem::create([
                     'transaction_no' => $request->input('transaction_no'),
                     'category_id' => $request->input('category_id'),
                     'unit_id' => $request->input('unit_id'),
@@ -256,11 +267,35 @@ class RequestController extends Controller
                     'updated_at' => $nowInManila,
                 ]);
 
+                $newItemId = $newlyCreatedItem->id;
+
+                $reqItem = RequestItem::find($newItemId);
+                $totalcost = number_format($reqItem->sum('total_cost'), 2);
+
+                $newrow = "
+                    <tr>
+                        <td></td>
+                        <td>$reqItem->item_id</td>
+                        <td>number_format($totalcost, 2)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                ";
+
+                $data = [
+                    'newrow' => $newrow,
+                    'totalcost' => $totalcost,
+                ];
+
                 //return redirect()->back()->with('success', 'Item add successfully!');
-                return response()->json(['success' => true, 'message' => 'Item added successfully']);
+                return response()->json(['success' => true, 'message' => $data]);
             } catch (\Exception $e) {
                 //return redirect()->back()->with('error', 'Failed to add Item!');
-                return response()->json(['error' => true, 'message' => 'Item added successfully']);
+                return response()->json(['error' => true, 'message' => 'Failed to add Item in Cart!']);
             }
         }
     }

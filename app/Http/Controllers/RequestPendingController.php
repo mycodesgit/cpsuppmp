@@ -446,6 +446,8 @@ class RequestPendingController extends Controller
         $allotment = $request->input('allotment');
         $account_code = $request->input('account_code');
         $amount = $request->input('amount');
+        $purproject = $request->input('purproject');
+        $allotbuget = $request->input('allotbuget');
 
         RequestItem::where('status', 6)
             ->where('purpose_id', $purpose_id)

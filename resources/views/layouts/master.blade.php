@@ -271,7 +271,13 @@
 <script src="{{ asset('js/validation/passValidation.js') }}"></script>
 <script src="{{ asset('js/validation/form1Validation.js') }}"></script>
 
+<script src="{{ asset('js/ajax/addCart/addItemCart.js') }}"></script>
 
+
+
+@if(request()->routeIs('selectItems'))
+    <script src="{{ asset('js/ajax/addCart/cartTable.js') }}"></script>
+@endif
 
 @if(request()->routeIs('pendingAllListRead'))
     <script src="{{ asset('js/ajax/allpending.js') }}"></script>
@@ -443,20 +449,37 @@
 
 <script>
     $(document).ready(function() {
-    // Event handler for when the modal is shown
-    $('#modal-userppmp').on('shown.bs.modal', function (e) {
-        // Get the categories data from the button's data attribute
-        var categoriesData = $(e.relatedTarget).data('categories');
+        $('#modal-userppmp').on('shown.bs.modal', function (e) {
+            var categoriesData = $(e.relatedTarget).data('categories');
 
-        // Parse the JSON data
-        var categories = JSON.parse(categoriesData);
+            var categories = JSON.parse(categoriesData);
 
-        // Set the selected options in the <select> element
-        $(this).find('select[name="ppmp_categories[]"]').val(categories).trigger('change.select2');
+            $(this).find('select[name="ppmp_categories[]"]').val(categories).trigger('change.select2');
+        });
     });
-});
-
 </script>
+
+<script>
+    $(document).on('click', '.received-pr', function(e) {
+        e.preventDefault();
+        var approvedReceivedViewRoute = '{{ route('receivedPR') }}';
+        var prId = $(this).data('id');
+        //alert(prId);
+        $.ajax({
+            url: approvedReceivedViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+                //alert('PR Received Successfully');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+</script>
+
 
 </body>
 </html>

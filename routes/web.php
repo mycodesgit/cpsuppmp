@@ -80,7 +80,7 @@ Route::group(['middleware'=>['login_auth']],function(){
         Route::post('/purchaseRequest/purpose/add', [RequestController::class, 'prPurposeRequestCreate'])->name('prPurposeRequestCreate');
 
         Route::get('/selectprcategory/{purpose_Id}', [RequestController::class, 'selectItems'])->name('selectItems');
-        //oute::get('/purchaseRequest/{purpose_Id}', [RequestController::class, 'prCreateRequest'])->name('prCreateRequest');
+        Route::get('/selectprcategory/ajax/cartItem/{purpose_Id}', [RequestController::class, 'getcartitemListRead'])->name('getcartitemListRead');
         Route::post('/purchaseRequest/add', [RequestController::class, 'prCreate'])->name('prCreate');
         Route::get('get-items/{id}', [RequestController::class, 'getItemsByCategory'])->name('getItemsByCategory');
         Route::post('/purchaseRequest/add/save', [RequestController::class, 'savePR'])->name('savePR');
@@ -129,6 +129,9 @@ Route::group(['middleware'=>['login_auth']],function(){
         Route::get('/approvedPR/list/view/{pid}', [RequestApprovedController::class, 'approvedAllListView'])->name('approvedAllListView');
         Route::get('/approvedPR/list/pdf/{pid}', [RequestApprovedController::class, 'PDFprAllApproved'])->name('PDFprAllApproved');
         Route::get('/approvedPR/list/rbaras/{pid}', [RequestApprovedController::class, 'PDFrbarasAllApproved'])->name('PDFrbarasAllApproved');
+
+        Route::post('/approvedPR/list/received', [RequestApprovedController::class, 'receivedPR'])->name('receivedPR');
+        Route::post('/role/user', [RequestApprovedController::class, 'getUserRole'])->name('getUserRole');
     });
 
     //View

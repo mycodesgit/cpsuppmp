@@ -48,5 +48,8 @@
 <script>
     var allApprovedRoute = "{{ route('getAllapprovedListRead') }}";
     var approvedAllListViewRoute = '{{ route('approvedAllListView', '') }}';
+    var approvedReceivedViewRoute = '{{ route('receivedPR') }}';
+
+    var userRole = '{{ Auth::user()->role }}';
 </script>
 @endsection

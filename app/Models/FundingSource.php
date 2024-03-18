@@ -27,6 +27,8 @@ class FundingSource extends Model
         'allotment',
         'account_code',
         'amount',
+        'purproject',
+        'allotbuget',
         'remember_token',
     ];
     // In Purpose model

@@ -217,6 +217,20 @@
 
                                 <div class="form-group">
                                     <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label>Purpose/Project:</label>
+                                            <input type="text" name="purproject" class="form-control">
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>Allotment / Budget Available:</label>
+                                            <input type="number" name="allotbuget" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-row">
                                         <div class="col-md-12">
                                             <button type="submit" class="btn btn-secondary">
                                                 <i class="fas fa-check"></i> Submit

@@ -18,6 +18,7 @@ class ItemController extends Controller
         $unit = Unit::all();
         $item = Item::join('unit', 'item.unit_id', '=', 'unit.id')
                 ->join('category', 'item.category_id', '=', 'category.id')
+                ->select('item.*', 'category.category_name', 'unit.*', 'item.id as itid')
                 ->get();
 
         return view('manage.item', compact('category', 'unit', 'item'));
@@ -60,7 +61,7 @@ class ItemController extends Controller
 
         $editItem = Item::join("category", "item.category_id", "=", "category.id")
             ->join("unit", "item.unit_id", "=", "unit.id")
-            ->select('item.*', 'category.category_name', 'unit.*', 'item.id as itid')
+            ->select('item.*', 'category.category_name', 'unit.*')
             ->where('item.id', $id)
             ->first();
 
@@ -72,14 +73,13 @@ class ItemController extends Controller
             'id' => 'required',
             'category_id' => 'required',
             'unit_id' => 'required',
-            'item_name' => 'required',
             'item_descrip' => 'required',
             'item_cost' => 'required',
         ]);
 
         try {
-            $itemName = $request->input('item_name');
-            $existingItem = Item::where('item_name', $itemName)->where('id', '!=', $request->input('id'))->first();
+            $itemdescripName = $request->input('item_descrip');
+            $existingItem = Item::where('item_descrip', $itemdescripName)->where('id', '!=', $request->input('id'))->first();
 
             if ($existingItem) {
                 return redirect()->back()->with('error', 'Item already exists!');
@@ -89,8 +89,7 @@ class ItemController extends Controller
             $item->update([
                 'category_id' => $request->input('category_id'),
                 'unit_id' => $request->input('unit_id'),
-                'item_name' => $itemName,
-                'item_descrip' => $request->input('item_descrip'),
+                'item_descrip' => $itemdescripName,
                 'item_cost' => $request->input('item_cost'),
         ]);
 

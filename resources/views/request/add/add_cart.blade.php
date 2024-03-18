@@ -8,7 +8,7 @@
                 @include('partials.control_requestSidebar')
             </div>
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-5">
             <div class="card card-outline card-success">
                 <div class="card-header">
                     <h3 class="card-title">Select Items in {{ $items->first()->category_name }} Category</h3>
@@ -125,57 +125,46 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            
+        <div class="col-lg-5">
             <div class="card card-outline card-success">
                 <div class="card-header">
                     <h3 class="card-title">List of your Selected Items in {{ $items->first()->category_name }} Category</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <table id="example1" class="table table-hover">
-                                <thead>
+                        <div class="col-md-12" id="table-cart">
+                            <table id="cart" class="table table-hover table-striped">
+                                <thead style="font-size: 8pt">
                                     <tr>
-                                        <th width="5%">#</th>
                                         <th>Description</th>
                                         <th>Unit</th>
                                         <th>Qty</th>
                                         <th>Cost</th>
                                         <th>Total Cost</th>
-                                        <th width="10%">#</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tbody">
-                                    @php $no = 1; $grandTotal = 0; @endphp
-                                    @foreach($selecteditem as $req)
-                                    <tr id="tr-{{ $req->iid }}">
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $req->item_descrip }}</td>
-                                        <td>{{ $req->unit_name }}</td>
-                                        <td>{{ $req->qty }}</td>
-                                        <td>{{ number_format($req->item_cost, 2, '.', ',') }}</td>
-                                        <td>{{ number_format($req->total_cost, 2, '.', ',') }}</td>
-                                        <td>
-                                            <button value="{{ $req->iid }}" class="btn btn-outline-danger btn-sm prreq-delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
-                                        @if(is_numeric(str_replace(',', '', $req->total_cost)))
-                                            @php $grandTotal += str_replace(',', '', $req->total_cost); @endphp
-                                        @endif
-                                    </tr>
-                                    @endforeach
-                                    <tr>
-                                        <td colspan="6" style="text-align: right;"><strong>Grand Total:</strong></td>
-                                        <td style="background-color: #e9e9e9"><strong id="granTotal">{{ number_format($grandTotal, 2) }}</strong></td>
-                                    </tr>
+                                <tbody id="tbodycart">
+
                                 </tbody>
                             </table>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="float-right">
+                                        <h5>Grand Total: <span id="grandTotal"></span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            
                             <form id="updateStatusForm" action="{{ route('savePR') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="purpose_id" value="{{ encrypt($req->purpose_id ?? '') }}">
-                                <button class="btn btn-success float-right" {{ $grandTotal == 0 ? 'disabled' : '' }}>
+                                <input type="hidden" name="purpose_id" value="{{ request('purpose_Id') }}">
+                                <button class="btn btn-success float-right">
                                     <i class="fas fa-save"></i> Submit PR
                                 </button>
                             </form>
@@ -223,6 +212,14 @@ function formatNumber(input) {
     }
 
     </script>
+
+@if(request()->routeIs(['selectItems']))
+    <script>
+        var purposeId = "{{ request('purpose_Id') }}"; // Retrieving purpose_Id from the request
+        var allCartRoute = "{{ route('getcartitemListRead', ['purpose_Id' => ':purpose_Id']) }}"
+            .replace(':purpose_Id', purposeId);
+    </script>
+@endif
 
 
 <script>

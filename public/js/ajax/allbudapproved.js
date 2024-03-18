@@ -67,16 +67,9 @@
                                 '<div class="dropdown-menu">' +
                                     '<a href="' + approvedAllListViewRoute + '/' + data + '" class="dropdown-item btn-edit">' +
                                         '<i class="fas fa-eye"></i> View PR' +
-                                    '</a>';
-
-                                    if (userRole === 'Checker') {
-                                        dropdown += '<a href="' + approvedReceivedViewRoute + '/' + data + '" class="dropdown-item received-pr" data-id="' + data + '">' +
-                                                        '<i class="fas fa-check"></i> Received PR ' +
-                                                    '</a>';
-                                    }
-                                    
-                                    dropdown += '</div>' +
-                                '</div>';
+                                    '</a>' +
+                                '</div>' +
+                            '</div>';
                             return dropdown;
                         } else {
                             return data;

@@ -29,36 +29,50 @@
                                     <th>Unit</th>
                                     <th>Price</th>
                                     <th>Category</th>
+                                    @if($cr === 'itemRead')
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $no = 1; @endphp
-                                @foreach($item as $data)
-                                <tr id="tr-{{ $data->id }}" class="{{ $cr === 'itemEdit' ? $data->id == $editItem->id ? 'bg-selectEdit' : '' : ''}}">
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $data->item_descrip }}</td>
-                                    <td>{{ $data->unit_name }}</td>
-                                    <td>{{ $data->item_cost }}</td>
-                                    <td>{{ $data->category_name }}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a href="{{ route('itemEdit', ['id' => $data->id]) }}" class="dropdown-item btn-edit" data-id="{{ $data->id }}">
-                                                        <i class="fas fa-exclamation-circle"></i> Edit
-                                                    </a>
-                                                    <button value="{{ $data->id }}" class="dropdown-item item-delete">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
+                                @if($cr === 'itemEdit')
+                                    @foreach([$editItem] as $data)
+                                        <tr id="tr-{{ $data->itid }}" class="bg-selectEdit">
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $data->item_descrip }}</td>
+                                            <td>{{ $data->unit_name }}</td>
+                                            <td>{{ $data->item_cost }}</td>
+                                            <td>{{ $data->category_name }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    @foreach($item as $data)
+                                        <tr id="tr-{{ $data->itid }}">
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $data->item_descrip }}</td>
+                                            <td>{{ $data->unit_name }}</td>
+                                            <td>{{ $data->item_cost }}</td>
+                                            <td>{{ $data->category_name }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-success dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a href="{{ route('itemEdit', ['id' => $data->itid]) }}" class="dropdown-item btn-edit" data-id="{{ $data->itid }}">
+                                                                <i class="fas fa-exclamation-circle"></i> Edit
+                                                            </a>
+                                                            <button value="{{ $data->itid }}" class="dropdown-item item-delete">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -73,7 +87,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ $cr == 'itemEdit' ? route('itemUpdate', ['id' => $editItem->id]) : route('itemCreate') }}" method="post" id="office">
+                    <form class="form-horizontal" action="{{ $cr == 'itemEdit' ? route('itemUpdate', ['id' => $editItem->id]) : route('itemCreate') }}" method="post" id="item">
                         @csrf
                         <div class="form-group">
                             <div class="form-row">
