@@ -271,6 +271,7 @@
 <script src="{{ asset('js/validation/userValidation.js') }}"></script>
 <script src="{{ asset('js/validation/passValidation.js') }}"></script>
 <script src="{{ asset('js/validation/form1Validation.js') }}"></script>
+<script src="{{ asset('js/validation/budremarksValidation.js') }}"></script>
 
 <script src="{{ asset('js/ajax/addCart/addItemCart.js') }}"></script>
 
