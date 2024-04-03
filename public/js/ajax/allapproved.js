@@ -54,6 +54,8 @@
                                 return '<span class="badge badge-success">PR has been Approved</span>';
                             case 8:
                                 return '<span class="badge badge-primary">PR has been Received</span>';
+                            case 9:
+                                return '<span class="badge badge-primary">Purchased/span>';
                             default:
                                 return '<span class="badge badge-secondary">Unknown Status</span>';
                         }

@@ -116,7 +116,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="custom-tabs-four" role="tabpanel" aria-labelledby="custom-tabs-four-tab">
-                            <form action="{{ route('approvedPR') }}" class="form-horizontal" method="post" id="addItem">
+                            <form action="{{ route('approvedPR') }}" class="form-horizontal" method="post" id="budremark">
                                 @csrf
                                 
                                 <input type="hidden" name="purpose_id" value="{{ encrypt($data->purpose_id ?? '') }}">
@@ -221,11 +221,24 @@
 
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <label>Purpose/Project:</label>
                                             <input type="text" name="purproject" class="form-control">
                                         </div>
+                                    </div>
+                                </div>
 
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label>Program/Activity/Project</label>
+                                            <input type="text" name="progactproject" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-row">
                                         <div class="col-md-4">
                                             <label>Allotment / Budget Available:</label>
                                             <input type="number" name="allotbuget" class="form-control">
@@ -274,7 +287,11 @@
                                                             Checking PPMP
                                                         </option>
                                                         <option value="6" @if (old('status') == 6 || $reqitem->status == '6') {{ 'selected' }} @endif>
+<<<<<<< HEAD
                                                             Endorse PR to Budget Office
+=======
+                                                            Endorse to Budget Office
+>>>>>>> 37b611f1969cab47aaddbda7b761819ee048977a
                                                         </option>
                                                     </select>
 
