@@ -450,6 +450,7 @@ class RequestPendingController extends Controller
         $account_code = $request->input('account_code');
         $amount = $request->input('amount');
         $purproject = $request->input('purproject');
+        $progactproject = $request->input('progactproject');
         $allotbuget = $request->input('allotbuget');
 
         RequestItem::where('status', 6)
@@ -470,6 +471,9 @@ class RequestPendingController extends Controller
                     'allotment' => $allotment,
                     'account_code' => $account_code,
                     'amount' => $amount,
+                    'purproject' => $purproject,
+                    'progactproject' => $progactproject,
+                    'allotbuget' => $allotbuget,
             ]);
 
         return back()->with('success', 'Save Successfully');
