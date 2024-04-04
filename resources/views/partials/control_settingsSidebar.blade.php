@@ -12,6 +12,8 @@
 <div class="ml-2 mr-2 mt-3 mb-3">
     <ul class="list-group">
         <a href="{{ route('user_settings') }}" class="list-group-item {{ $infoacntActive }}">Account Info</a>
-        <a href="{{ route('annouceInfo') }}" class="list-group-item {{ $annouce2Active }}">Annoucement</a>
+        @if(Auth::user()->role=='Administrator' || Auth::user()->role=='Procurement Officer' || Auth::user()->role=='Checker')
+            <a href="{{ route('annouceInfo') }}" class="list-group-item {{ $annouce2Active }}">Annoucement</a>
+        @endif
     </ul>
 </div>
