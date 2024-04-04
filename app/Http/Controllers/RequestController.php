@@ -24,6 +24,7 @@ use App\Models\Purpose;
 use App\Models\RequestItem;
 use App\Models\DocFile;
 use App\Models\User;
+use App\Models\Annoucement;
 
 class RequestController extends Controller
 {
@@ -31,6 +32,7 @@ class RequestController extends Controller
     use ApprovedCountTrait;
 
     public function shop(){
+        $annoucement = Annoucement::first();
         $userCategoryIds = PpmpUser::where('user_id', Auth::user()->id)
                              ->pluck('ppmp_categories')
                              ->flatMap(function ($item) {
@@ -51,7 +53,7 @@ class RequestController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
         
-        return view ("request.add.shop", compact('data', 'category'));
+        return view ("request.add.shop", compact('data', 'category', 'annoucement'));
     }
 
     public function getCategories()

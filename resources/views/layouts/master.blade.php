@@ -183,6 +183,11 @@
             background-size: cover;
             background-position: center;
         }
+        .bgmshop {
+            background-image: url('{{ '../../template/img/shopBGannounce.png' }}');
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 
@@ -518,7 +523,7 @@
     });
 </script>
 
-@if(request()->routeIs('dashboard'))
+@if(request()->routeIs('dashboard', 'shop'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         @if($annoucement)
