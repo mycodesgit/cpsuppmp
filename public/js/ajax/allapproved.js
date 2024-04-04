@@ -55,7 +55,7 @@
                             case 8:
                                 return '<span class="badge badge-primary">PR has been Received</span>';
                             case 9:
-                                return '<span class="badge badge-primary">Purchased/span>';
+                                return '<span class="badge badge-warning">Purchased</span>';
                             default:
                                 return '<span class="badge badge-secondary">Unknown Status</span>';
                         }
@@ -74,6 +74,11 @@
                                     if (userRole === 'Checker') {
                                         dropdown += '<a href="' + approvedReceivedViewRoute + '/' + data + '" class="dropdown-item received-pr" data-id="' + data + '">' +
                                                         '<i class="fas fa-check"></i> Received PR ' +
+                                                    '</a>';
+                                    }
+                                    if (userRole === 'Checker') {
+                                        dropdown += '<a href="' + approvedPurchasedViewRoute + '/' + data + '" class="dropdown-item purchased-pr" data-id="' + data + '">' +
+                                                        '<i class="fas fa-dolly"></i> Purchased ' +
                                                     '</a>';
                                     }
                                     

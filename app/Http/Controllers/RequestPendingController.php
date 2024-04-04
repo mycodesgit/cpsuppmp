@@ -475,6 +475,22 @@ class RequestPendingController extends Controller
                     'progactproject' => $progactproject,
                     'allotbuget' => $allotbuget,
             ]);
+        $year = Carbon::now()->format('Y');
+        $prnumber = '';
+        $latestPrnumber = Purpose::where('pr_no', 'like', $year . '-' . $fund_cluster . '-%')->latest('created_at')->first();
+
+        if (empty($latestPrnumber)) {
+            $latestId = 0;
+        } else {
+            $latestId = (int)substr($latestPrnumber->pr_no, -4);
+        }
+
+        $newPrId = $latestId + 1;
+        $paddedValue = str_pad($newPrId, 4, '0', STR_PAD_LEFT);
+        $prnumber = $year . '-' . $fund_cluster . '-' . $paddedValue;
+
+        Purpose::where('id', $purpose_id)
+            ->update(['pr_no' => $prnumber]);
 
         return back()->with('success', 'Save Successfully');
     }

@@ -11,7 +11,7 @@
             "columns": [
                 //{data: 'id', name: 'id', orderable: false, searchable: false},
                 {data: 'campus_abbr'},
-                 {data: 'pr_no'},
+                {data: 'transaction_no'},
                 {data: 'type_request',
                         render: function(data, type, row) {
                         switch(parseInt(data)) {

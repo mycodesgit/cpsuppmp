@@ -162,6 +162,27 @@
             background-color: #fff;
             border: 1px solid #dee2e6;
         }
+        .countdown-box {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 25px;
+            text-align: center;
+            line-height: 50px;
+            margin-right: 10px;
+        }
+
+        #countdown {
+            text-align: center;
+        }
+        .bgm {
+            background-image: url('{{ 'template/img/announceBg.png' }}');
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 
@@ -301,7 +322,7 @@
     <script src="{{ asset('js/ajax/alluserapproved.js') }}"></script>
 @endif
 
-@unless(request()->is('ppmp*', 'view*', 'dashboard*', 'users*', 'generate*'))
+@unless(request()->is('ppmp*', 'view*', 'dashboard*', 'users*', 'generate*', 'info*'))
     <script src="{{ asset('js/ajax/allCountApproved.js') }}"></script>
     <script src="{{ asset('js/ajax/userCountApproved.js') }}"></script>
     <script src="{{ asset('js/ajax/allCountPendingB.js') }}"></script>
@@ -466,14 +487,29 @@
         e.preventDefault();
         var approvedReceivedViewRoute = '{{ route('receivedPR') }}';
         var prId = $(this).data('id');
-        //alert(prId);
         $.ajax({
             url: approvedReceivedViewRoute,
             method: 'POST',
             data: { id: prId },
             success: function(response) {
                 console.log(response);
-                //alert('PR Received Successfully');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.purchased-pr', function(e) {
+        e.preventDefault();
+        var approvedPurchasedViewRoute = '{{ route('purchasedPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedPurchasedViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
             },
             error: function(xhr, status, error) {
                 console.error(error);
@@ -481,6 +517,52 @@
         });
     });
 </script>
+
+@if(request()->routeIs('dashboard'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if($annoucement)
+            var myModal = new bootstrap.Modal(document.getElementById('autoPopupModal'), {
+                backdrop: 'absolute', 
+                keyboard: false 
+            });
+
+            myModal.show();
+        @endif
+    });
+</script>
+
+<script>
+    function updateCountdown(endDate) {
+        var now = new Date();
+        var difference = endDate - now;
+
+        var hours = Math.floor(difference / (1000 * 60 * 60));
+        var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("hoursBox").innerHTML = formatTime(hours);
+        document.getElementById("minutesBox").innerHTML = formatTime(minutes);
+        document.getElementById("secondsBox").innerHTML = formatTime(seconds);
+
+        if (difference <= 0) {
+            clearInterval(intervalId);
+            document.getElementById("hoursBox").innerHTML = "00";
+            document.getElementById("minutesBox").innerHTML = "00";
+            document.getElementById("secondsBox").innerHTML = "00";
+        }
+    }
+
+    function formatTime(time) {
+        return time < 10 ? "0" + time : time;
+    }
+
+    var endDate = new Date("{{ $annoucement->dateend }}");
+    var intervalId = setInterval(function() {
+        updateCountdown(endDate);
+    }, 1000);
+</script>
+@endif
 
 
 </body>

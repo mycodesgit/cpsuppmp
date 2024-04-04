@@ -100,28 +100,6 @@ class RequestController extends Controller
             // $counter = $prReceipt ? (int)substr($prReceipt->pr_no, -5) + 1 : 1;
             // $formattedCounter = str_pad($counter, 5, '0', STR_PAD_LEFT);
             // $prControl = $currentYear . '-' . $formattedCounter;
-
-            $year = Carbon::now()->format('Y');
-            $prnumber = '';
-
-            //$latestPrnumber = Purpose::where('pr_no', $prnumber)->latest('created_at')->first();
-            $latestPrnumber = Purpose::where('pr_no', 'like', $year . '%')->latest('created_at')->first();
-
-            if (empty($latestPrnumber) || date('Y', strtotime($latestPrnumber->created_at)) < $year) {
-                $latestId = 0;
-            } else {
-                $latestId = (int)substr($latestPrnumber->pr_no, -5);
-            }
-
-            $newPrId = $latestId + 1;
-            $paddedValue = str_pad($newPrId, 5, '0', STR_PAD_LEFT);
-            $prnumber = $year . '-'. $paddedValue;
-
-            $existingPrId = Purpose::where('pr_no', $prnumber)->first();
-
-            if ($existingPrId) {
-                $prnumber = $existingPrId->pr_no + 1;
-            }
     
             try {
                 $purpose = Purpose::create([
@@ -129,7 +107,6 @@ class RequestController extends Controller
                     'camp_id' => $request->input('camp_id'),
                     'office_id' => $request->input('office_id'),
                     'transaction_no' => $request->input('transaction_no'),
-                    'pr_no' => $prnumber,
                     'type_request' => '1',
                     'cat_id' => $request->input('cat_id'),
                     'purpose_name' => $request->input('purpose_name'),

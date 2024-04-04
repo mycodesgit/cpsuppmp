@@ -287,11 +287,7 @@
                                                             Checking PPMP
                                                         </option>
                                                         <option value="6" @if (old('status') == 6 || $reqitem->status == '6') {{ 'selected' }} @endif>
-<<<<<<< HEAD
                                                             Endorse PR to Budget Office
-=======
-                                                            Endorse to Budget Office
->>>>>>> 37b611f1969cab47aaddbda7b761819ee048977a
                                                         </option>
                                                     </select>
 

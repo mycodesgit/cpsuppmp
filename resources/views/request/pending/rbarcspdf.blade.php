@@ -160,10 +160,10 @@
 		<thead>
 			<tr>
 				<th style="text-align: left;font-size: 8pt;" width="67" height="20">PR No.</th>
-				<th style="text-align: left;font-size: 8pt;" width="273" height="20">{{ $reqitem->first()->pr_no }}</th>
+				<th style="text-align: left;font-size: 8pt;" width="273" height="20">{{-- {{ $reqitem->first()->pr_no }} --}}</th>
 				<th style="text-align: center;font-size: 8pt;" width="30" height="20">Date</th>
 				<th style="text-align: left;font-size: 8pt;" height="20">
-					{{ \Carbon\Carbon::parse($reqitem->first()->pur_created_at)->format('F j, Y h:i:s A') }}
+					{{ \Carbon\Carbon::parse($reqitem->first()->pur_created_at)->format('F j, Y') }}
 				</th>
 			</tr>
 		</thead>
