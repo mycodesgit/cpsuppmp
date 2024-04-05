@@ -19,6 +19,7 @@ use App\Models\Item;
 use App\Models\Office;
 use App\Models\Purpose;
 use App\Models\RequestItem;
+use App\Models\DocFile;
 use App\Models\FundingSource;
 use App\Models\User;
 use App\Models\Campus;
@@ -130,6 +131,8 @@ class RequestApprovedController extends Controller
         $enID = decrypt($pid);
         $purpose = Purpose::find($pid);
 
+        $docFile = DocFile::where('purpose_id', $enID)->first();
+
         $appItem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
             ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
             ->join('item', 'item_request.item_id', '=', 'item.id')
@@ -157,7 +160,7 @@ class RequestApprovedController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
 
-        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data'));
+        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data', 'docFile'));
     }
 
     public function approvedAllListView($pid) {
@@ -168,6 +171,8 @@ class RequestApprovedController extends Controller
 
         $enID = decrypt($pid);
         $purpose = Purpose::find($pid);
+
+        $docFile = DocFile::where('purpose_id', $enID)->first();
 
         $appItem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
             ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
@@ -195,7 +200,7 @@ class RequestApprovedController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
 
-        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data'));
+        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data', 'docFile'));
     }
 
     public function PDFprApproved($pid) {

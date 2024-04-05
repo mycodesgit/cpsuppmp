@@ -36,6 +36,10 @@
                         <li class="nav-item ml-1">
                             <a class="nav-link" id="custom-tabs-five-tab" data-toggle="pill" href="#custom-tabs-five" role="tab" aria-controls="custom-tabs-five" aria-selected="false">Track</a>
                         </li>
+
+                        <li class="nav-item ml-1">
+                            <a class="nav-link" id="custom-tabs-six-tab" data-toggle="pill" href="#custom-tabs-six" role="tab" aria-controls="custom-tabs-six" aria-selected="false">POW Attachment</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="card-body">
@@ -214,6 +218,13 @@
                                 @endif
 
                             </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom-tabs-six" role="tabpanel" aria-labelledby="custom-tabs-six-tab">
+                            @if($docFile)
+                                <iframe src="{{ asset('storage/' . $docFile->doc_file) }} #toolbar=0" style="width:100%; height:500px;"></iframe>
+                            @else
+                                <p>No PDF file uploaded.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
