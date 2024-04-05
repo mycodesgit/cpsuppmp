@@ -221,6 +221,8 @@ class RequestPendingController extends Controller
         $enID = decrypt($pid);
         $purpose = Purpose::find($pid);
 
+        $docFile = DocFile::where('purpose_id', $enID)->first();
+
         $pendItem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
             ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
             ->join('item', 'item_request.item_id', '=', 'item.id')
@@ -250,7 +252,7 @@ class RequestPendingController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
 
-        return view ("request.pending.viewlist", compact('category', 'unit', 'item', 'pendItem', 'purpose', 'data'));
+        return view ("request.pending.viewlist", compact('category', 'unit', 'item', 'pendItem', 'purpose', 'data', 'docFile'));
     }
 
     public function PDFprPending($pid) {
