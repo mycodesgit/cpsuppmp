@@ -82,7 +82,9 @@
                                 <label>Role:</label>
                                 <select class="form-control" name="role">
                                     <option value=""> --- Select Role --- </option>
+                                    @if(Auth::user()->role=='Administrator')
                                     <option value="Administrator">Administrator</option>
+                                    @endif
                                     <option value="Budget Officer">Budget Officer</option>
                                     <option value="Procurement Officer">Procurement Officer</option>
                                     <option value="Campus Admin">Campus Admin</option>
