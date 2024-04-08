@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('template/dist/css/theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/dist/css/custom.css') }}">
 
     <!-- Logo  -->
     <link rel="shortcut icon" type="" href="{{ asset('template/img/CPSU_L.png') }}">
@@ -218,10 +219,22 @@
             </div>
         </nav>
 
+        <nav class="main-header navbar navbar-expand-md navbar-light bottom-border-0" style="margin-top: 45px; background-color: #6c9076">
+            <div class="container-fluid">
+                <a href="#" class=""></a>
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                    @include('partials.control')
+                </div>
+            </div>
+        </nav>
+
         <div class="content-wrapper">
             <div class="content-header">
-                <div class="container-fluid" style="margin-top: -9px">
-                    @include('partials.control')
+                <div class="container-fluid" style="">
                 </div>
             </div>
 
