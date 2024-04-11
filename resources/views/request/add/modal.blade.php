@@ -31,7 +31,7 @@
                                 <label>Select Category</label><br>
                                 <select class="form-control" name="cat_id" id="categorySelect" style="pointer-events: none;">
                                     <option disabled selected>Select</option>
-                                </select>s
+                                </select>
                             </div>
                         </div>
                     </div>
