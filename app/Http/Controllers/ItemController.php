@@ -29,7 +29,6 @@ class ItemController extends Controller
             $request->validate([
                 'category_id' => 'required',
                 'unit_id' => 'required',
-                'item_name' => 'required',
                 'item_descrip' => 'required',
                 'item_cost' => 'required',
             ]);
