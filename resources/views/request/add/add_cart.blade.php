@@ -15,7 +15,7 @@
                     <div class="card-tools">
                         <button type="button" class="btn btn-default btn-sm" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
-                        </button>s
+                        </button>
                     </div>
                 </div>
                 <div class="card-body">
