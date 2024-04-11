@@ -61,6 +61,14 @@
                 }, 0);
                 $(api.column(4).footer()).html(parseFloat(grandTotal).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $('#grandTotal').text(parseFloat(grandTotal).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                function toggleSubmitButton() {
+                    if (grandTotal > 0) {
+                        $('#submitPRButton').prop('disabled', false);
+                    } else {
+                        $('#submitPRButton').prop('disabled', true);
+                    }
+                }
+                toggleSubmitButton();
             },
             "createdRow": function (row, data, index) {
                 $(row).attr('id', 'tr-' + data.iid); 
