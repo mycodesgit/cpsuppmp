@@ -94,7 +94,7 @@
                                 <div class="col-md-12">
                                     <label>Category:</label>
                                     @if ($cr == 'itemEdit')
-                                        <input type="hidden" name="id" value="{{ $editItem->id }}">
+                                        <input type="hidden" name="id" value="{{ $editItem->itid }}">
                                     @endif
                                     
                                     <select id="category" name="category_id" class="form-control select2bs4" data-placeholder="Select Category" style="width: 100%;">

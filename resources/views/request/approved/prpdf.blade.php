@@ -154,8 +154,8 @@
 						{{ $reqitem[0]->office_name }}
 					@endif
 				</th>
-				<th colspan="2" style="text-align: left; font-weight: initial;" class="cell-normal-top">PR  No.:<br>Code:</th>
-				<th style="text-align: left; font-weight: initial;" width="100" class="cell-normal-top-right">Date:</th>
+				<th colspan="2" style="text-align: left; font-weight: initial;" class="cell-normal-top">PR  No.: {{ $reqitem->first()->pr_no }}<br>Code:</th>
+				<th style="text-align: left; font-weight: initial;" width="100" class="cell-normal-top-right">Date: {{ \Carbon\Carbon::parse($reqitem->first()->pur_created_at)->format('F j, Y') }}</th>
 			</tr>
 			<tr>
 				<th class="cell-normal-side-left">STOCK NO.</th>

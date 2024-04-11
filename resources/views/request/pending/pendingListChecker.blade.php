@@ -21,7 +21,7 @@
                             <thead>
                                 <tr>
                                     <th>Campus</th>
-                                    <th>PR No.</th>
+                                    <th>Transaction No.</th>
                                     <th>Type of Request</th>
                                     <th>Office</th>
                                     <th>Purpose</th>

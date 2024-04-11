@@ -155,7 +155,7 @@
 					@endif
 				</th>
 				<th colspan="2" style="text-align: left; font-weight: initial;" class="cell-normal-top">PR  No.:<br>Code:</th>
-				<th style="text-align: left; font-weight: initial;" width="100" class="cell-normal-top-right">Date:</th>
+				<th style="text-align: left; font-weight: initial;" width="100" class="cell-normal-top-right">Date: {{ \Carbon\Carbon::parse($reqitem->first()->created_at)->format('M j, Y') }}</th>
 			</tr>
 			<tr>
 				<th class="cell-normal-side-left">STOCK NO.</th>
