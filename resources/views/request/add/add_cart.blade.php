@@ -38,7 +38,7 @@
                                         <td style="visibility: ;">{{ $itemdata->unit_id_alias }}</td>
                                         <td>{{ $itemdata->item_descrip }}</td>
                                         <td>{{ $itemdata->unit_name }}</td>
-                                        <td>{{ number_format($itemdata->item_cost, 2, '.', ',') }}</td>
+                                        <td>{{ number_format((float)$itemdata->item_cost, 2, '.', ',') }}</td>
                                         <td>
                                             <a href="" class="btn btn-outline-success btn-sm btn-selectitem" data-toggle="modal" data-target="#itemModal" data-id="{{ $itemdata->id }}">
                                                 <i class="fa-solid fa-cart-shopping"></i>
@@ -169,10 +169,6 @@
                                         <input type="file" name="doc_file" class="form-control form-control-sm" id="fileInput" accept=".pdf" onchange="handleFileUpload()">
                                     </div>
                                 </div>
-<<<<<<< HEAD
-=======
-                                <span style="font-size: 9pt; color: #dc3545;">Upload necessary attachment</span>
->>>>>>> 06ee8e2c7ad0db7a82b20d1b34222d9318ca5978
                                 <button id="submitPRButton" class="btn btn-success float-right">
                                     <i class="fas fa-save"></i> Submit PR
                                 </button>
