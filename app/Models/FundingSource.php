@@ -28,6 +28,7 @@ class FundingSource extends Model
         'account_code',
         'amount',
         'purproject',
+        'progactproject',
         'allotbuget',
         'remember_token',
     ];

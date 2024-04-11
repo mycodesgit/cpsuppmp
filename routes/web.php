@@ -131,6 +131,7 @@ Route::group(['middleware'=>['login_auth']],function(){
         Route::get('/approvedPR/list/rbaras/{pid}', [RequestApprovedController::class, 'PDFrbarasAllApproved'])->name('PDFrbarasAllApproved');
 
         Route::post('/approvedPR/list/received', [RequestApprovedController::class, 'receivedPR'])->name('receivedPR');
+        Route::post('/approvedPR/list/purchased', [RequestApprovedController::class, 'purchasedPR'])->name('purchasedPR');
         Route::post('/role/user', [RequestApprovedController::class, 'getUserRole'])->name('getUserRole');
     });
 
@@ -168,6 +169,9 @@ Route::group(['middleware'=>['login_auth']],function(){
         Route::get('/account-settings',[UserController::class,'user_settings'])->name('user_settings');
         Route::post('/account-settings/information/update',[UserController::class,'user_settings_profile_update'])->name('user_settings_profile_update');
         Route::post('/acccount-settings/information/updatePass',[UserController::class,'profilePassUpdate'])->name('profilePassUpdate');
+
+        Route::get('/annouce-settings',[UserController::class,'annouceInfo'])->name('annouceInfo');
+        Route::post('/annouce-settings/info/update',[UserController::class,'annouceUpdate'])->name('annouceUpdate');
     });
     
     //Logout

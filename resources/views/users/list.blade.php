@@ -32,6 +32,7 @@
                             <tbody id="tbody">
                                 @php $no = 1; @endphp
                                 @foreach($user as $data)
+                                @if($data->role !== 'Administrator')
                                 <tr id="tr-{{ $data->uid }}">
                                     <td width="10">{{ $no++ }}</td>
                                     <td>{{ $data->campus_name }}</td>
@@ -58,6 +59,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endif
                                 @endforeach
                             </tbody>
                         </table>

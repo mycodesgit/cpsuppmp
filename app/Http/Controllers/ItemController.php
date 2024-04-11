@@ -29,7 +29,6 @@ class ItemController extends Controller
             $request->validate([
                 'category_id' => 'required',
                 'unit_id' => 'required',
-                'item_name' => 'required',
                 'item_descrip' => 'required',
                 'item_cost' => 'required',
             ]);
@@ -61,7 +60,7 @@ class ItemController extends Controller
 
         $editItem = Item::join("category", "item.category_id", "=", "category.id")
             ->join("unit", "item.unit_id", "=", "unit.id")
-            ->select('item.*', 'category.category_name', 'unit.*')
+            ->select('item.*', 'category.category_name', 'unit.*', 'item.id as itid')
             ->where('item.id', $id)
             ->first();
 

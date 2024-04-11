@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('template/dist/css/theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/dist/css/custom.css') }}">
 
     <!-- Logo  -->
     <link rel="shortcut icon" type="" href="{{ asset('template/img/CPSU_L.png') }}">
@@ -162,6 +163,32 @@
             background-color: #fff;
             border: 1px solid #dee2e6;
         }
+        .countdown-box {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 25px;
+            text-align: center;
+            line-height: 50px;
+            margin-right: 10px;
+        }
+
+        #countdown {
+            text-align: center;
+        }
+        .bgm {
+            background-image: url('{{ 'template/img/announceBg.png' }}');
+            background-size: cover;
+            background-position: center;
+        }
+        .bgmshop {
+            background-image: url('{{ '../../template/img/shopBGannounce.png' }}');
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 
@@ -192,10 +219,22 @@
             </div>
         </nav>
 
+        <nav class="main-header navbar navbar-expand-md navbar-light bottom-border-0" style="margin-top: 45px; background-color: #6c9076">
+            <div class="container-fluid">
+                <a href="#" class=""></a>
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                    @include('partials.control')
+                </div>
+            </div>
+        </nav>
+
         <div class="content-wrapper">
             <div class="content-header">
-                <div class="container-fluid" style="margin-top: -9px">
-                    @include('partials.control')
+                <div class="container-fluid" style="">
                 </div>
             </div>
 
@@ -271,6 +310,7 @@
 <script src="{{ asset('js/validation/userValidation.js') }}"></script>
 <script src="{{ asset('js/validation/passValidation.js') }}"></script>
 <script src="{{ asset('js/validation/form1Validation.js') }}"></script>
+<script src="{{ asset('js/validation/budremarksValidation.js') }}"></script>
 
 <script src="{{ asset('js/ajax/addCart/addItemCart.js') }}"></script>
 
@@ -300,7 +340,7 @@
     <script src="{{ asset('js/ajax/alluserapproved.js') }}"></script>
 @endif
 
-@unless(request()->is('ppmp*', 'view*', 'dashboard*', 'users*', 'generate*'))
+@unless(request()->is('ppmp*', 'view*', 'dashboard*', 'users*', 'generate*', 'info*'))
     <script src="{{ asset('js/ajax/allCountApproved.js') }}"></script>
     <script src="{{ asset('js/ajax/userCountApproved.js') }}"></script>
     <script src="{{ asset('js/ajax/allCountPendingB.js') }}"></script>
@@ -465,14 +505,29 @@
         e.preventDefault();
         var approvedReceivedViewRoute = '{{ route('receivedPR') }}';
         var prId = $(this).data('id');
-        //alert(prId);
         $.ajax({
             url: approvedReceivedViewRoute,
             method: 'POST',
             data: { id: prId },
             success: function(response) {
                 console.log(response);
-                //alert('PR Received Successfully');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.purchased-pr', function(e) {
+        e.preventDefault();
+        var approvedPurchasedViewRoute = '{{ route('purchasedPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedPurchasedViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
             },
             error: function(xhr, status, error) {
                 console.error(error);
@@ -480,6 +535,52 @@
         });
     });
 </script>
+
+@if(request()->routeIs('dashboard', 'shop'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if($annoucement)
+            var myModal = new bootstrap.Modal(document.getElementById('autoPopupModal'), {
+                backdrop: 'absolute', 
+                keyboard: false 
+            });
+
+            myModal.show();
+        @endif
+    });
+</script>
+
+<script>
+    function updateCountdown(endDate) {
+        var now = new Date();
+        var difference = endDate - now;
+
+        var hours = Math.floor(difference / (1000 * 60 * 60));
+        var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("hoursBox").innerHTML = formatTime(hours);
+        document.getElementById("minutesBox").innerHTML = formatTime(minutes);
+        document.getElementById("secondsBox").innerHTML = formatTime(seconds);
+
+        if (difference <= 0) {
+            clearInterval(intervalId);
+            document.getElementById("hoursBox").innerHTML = "00";
+            document.getElementById("minutesBox").innerHTML = "00";
+            document.getElementById("secondsBox").innerHTML = "00";
+        }
+    }
+
+    function formatTime(time) {
+        return time < 10 ? "0" + time : time;
+    }
+
+    var endDate = new Date("{{ $annoucement->dateend }}");
+    var intervalId = setInterval(function() {
+        updateCountdown(endDate);
+    }, 1000);
+</script>
+@endif
 
 
 </body>

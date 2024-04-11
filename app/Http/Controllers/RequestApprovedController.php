@@ -19,6 +19,7 @@ use App\Models\Item;
 use App\Models\Office;
 use App\Models\Purpose;
 use App\Models\RequestItem;
+use App\Models\DocFile;
 use App\Models\FundingSource;
 use App\Models\User;
 use App\Models\Campus;
@@ -99,7 +100,7 @@ class RequestApprovedController extends Controller
             ->join('campuses', 'purpose.camp_id', '=', 'campuses.id')
             ->join('category', 'purpose.cat_id', '=', 'category.id')
             ->select('purpose.*', 'purpose.id as pid', 'campuses.*', 'campuses.id as campid', 'category.*', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus', ['7', '8'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9'])
             ->where('purpose.user_id', '=',  $userId)
             ->get();
         foreach ($data as $record) {
@@ -113,7 +114,7 @@ class RequestApprovedController extends Controller
             ->join('campuses', 'purpose.camp_id', '=', 'campuses.id')
             ->join('category', 'purpose.cat_id', '=', 'category.id')
             ->select('purpose.*', 'purpose.id as pid', 'campuses.*', 'campuses.id as campid', 'category.*', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus', ['7', '8'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9'])
             ->get();
         foreach ($data as $record) {
             $record->pid = encrypt($record->pid);
@@ -130,6 +131,8 @@ class RequestApprovedController extends Controller
         $enID = decrypt($pid);
         $purpose = Purpose::find($pid);
 
+        $docFile = DocFile::where('purpose_id', $enID)->first();
+
         $appItem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
             ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
             ->join('item', 'item_request.item_id', '=', 'item.id')
@@ -140,7 +143,7 @@ class RequestApprovedController extends Controller
                     'purpose.*', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid' )
-            ->whereIn('item_request.status', ['7', '8'])
+            ->whereIn('item_request.status', ['7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
             ->get();
@@ -157,7 +160,7 @@ class RequestApprovedController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
 
-        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data'));
+        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data', 'docFile'));
     }
 
     public function approvedAllListView($pid) {
@@ -169,6 +172,8 @@ class RequestApprovedController extends Controller
         $enID = decrypt($pid);
         $purpose = Purpose::find($pid);
 
+        $docFile = DocFile::where('purpose_id', $enID)->first();
+
         $appItem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
             ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
             ->join('item', 'item_request.item_id', '=', 'item.id')
@@ -179,7 +184,7 @@ class RequestApprovedController extends Controller
                     'purpose.*', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid' )
-            ->whereIn('item_request.status', ['7', '8'])
+            ->whereIn('item_request.status', ['7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
 
@@ -195,7 +200,7 @@ class RequestApprovedController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
 
-        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data'));
+        return view ("request.approved.viewlist", compact('category', 'unit', 'item', 'appItem', 'purpose', 'data', 'docFile'));
     }
 
     public function PDFprApproved($pid) {
@@ -221,7 +226,7 @@ class RequestApprovedController extends Controller
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid',
                     'office.id as oid' )
-            ->whereIn('item_request.status', ['7', '8'])
+            ->whereIn('item_request.status', ['7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
             ->get();
@@ -258,7 +263,7 @@ class RequestApprovedController extends Controller
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid',
                     'office.id as oid' )
-            ->where('item_request.status', ['7', '8'])
+            ->where('item_request.status', ['7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
 
@@ -300,7 +305,7 @@ class RequestApprovedController extends Controller
                     'funding_source.id as fid',
                     'office.id as oid',
                     'campuses.id as cid' )
-            ->whereIn('item_request.status', ['7', '8'])
+            ->whereIn('item_request.status', ['7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
             ->get();
@@ -344,7 +349,7 @@ class RequestApprovedController extends Controller
                     'office.id as oid',
                     'funding_source.id as fid',
                     'campuses.id as cid' )
-            ->whereIn('item_request.status', ['7', '8'])
+            ->whereIn('item_request.status', ['7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
 
@@ -368,6 +373,19 @@ class RequestApprovedController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function purchasedPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 8)
+            ->where('purpose_id', $id)
+            ->update(['status' => 9]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  9]);
+
+        return response()->json(['success' => true]);
+    }
+
     public function getUserRole()
     {
         $role = Auth::user()->role;

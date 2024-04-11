@@ -221,6 +221,8 @@ class RequestPendingController extends Controller
         $enID = decrypt($pid);
         $purpose = Purpose::find($pid);
 
+        $docFile = DocFile::where('purpose_id', $enID)->first();
+
         $pendItem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')
             ->leftJoin('unit', 'item_request.unit_id', '=', 'unit.id')
             ->join('item', 'item_request.item_id', '=', 'item.id')
@@ -250,7 +252,7 @@ class RequestPendingController extends Controller
                     'approvedUserCount' => $approvedUserCount,
                 ];
 
-        return view ("request.pending.viewlist", compact('category', 'unit', 'item', 'pendItem', 'purpose', 'data'));
+        return view ("request.pending.viewlist", compact('category', 'unit', 'item', 'pendItem', 'purpose', 'data', 'docFile'));
     }
 
     public function PDFprPending($pid) {
@@ -450,6 +452,7 @@ class RequestPendingController extends Controller
         $account_code = $request->input('account_code');
         $amount = $request->input('amount');
         $purproject = $request->input('purproject');
+        $progactproject = $request->input('progactproject');
         $allotbuget = $request->input('allotbuget');
 
         RequestItem::where('status', 6)
@@ -470,7 +473,26 @@ class RequestPendingController extends Controller
                     'allotment' => $allotment,
                     'account_code' => $account_code,
                     'amount' => $amount,
+                    'purproject' => $purproject,
+                    'progactproject' => $progactproject,
+                    'allotbuget' => $allotbuget,
             ]);
+        $year = Carbon::now()->format('Y');
+        $prnumber = '';
+        $latestPrnumber = Purpose::where('pr_no', 'like', $year . '-' . $fund_cluster . '-%')->latest('created_at')->first();
+
+        if (empty($latestPrnumber)) {
+            $latestId = 0;
+        } else {
+            $latestId = (int)substr($latestPrnumber->pr_no, -4);
+        }
+
+        $newPrId = $latestId + 1;
+        $paddedValue = str_pad($newPrId, 4, '0', STR_PAD_LEFT);
+        $prnumber = $year . '-' . $fund_cluster . '-' . $paddedValue;
+
+        Purpose::where('id', $purpose_id)
+            ->update(['pr_no' => $prnumber]);
 
         return back()->with('success', 'Save Successfully');
     }
