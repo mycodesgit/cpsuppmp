@@ -69,20 +69,12 @@
                     }
                 }
                 toggleSubmitButton();
-<<<<<<< HEAD
-=======
-
->>>>>>> 06ee8e2c7ad0db7a82b20d1b34222d9318ca5978
             },
             "createdRow": function (row, data, index) {
                 $(row).attr('id', 'tr-' + data.iid); 
             }
         });
-        
         $(document).on('itemAdded', function() {
             dataTable.ajax.reload();
-        });
-        $('#submitPRButton').on('click', function() {
-            // Your code to handle submission of PR goes here
         });
     });
