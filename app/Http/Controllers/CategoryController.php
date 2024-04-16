@@ -12,7 +12,7 @@ use App\Models\Category;
 class CategoryController extends Controller
 {   
     public function categoryRead() {
-        $category = Category::all();
+        $category = Category::orderBy('category_name', 'ASC')->get();
         return view('manage.category', compact('category'));
     }
 
