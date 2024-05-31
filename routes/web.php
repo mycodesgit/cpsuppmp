@@ -27,14 +27,15 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware'=>['guest']],function(){
+    Route::get('/', function () {
+        return view('login');
+    });
 
-Route::get('/', function () {
-    return view('login');
+    //Login
+    Route::get('/login',[LoginController::class,'getLogin'])->name('getLogin');
+    Route::post('/login',[LoginController::class,'postLogin'])->name('postLogin');
 });
-
-//Login
-Route::get('/login',[LoginController::class,'getLogin'])->name('getLogin');
-Route::post('/login',[LoginController::class,'postLogin'])->name('postLogin');
 
 //Middleware
 Route::group(['middleware'=>['login_auth']],function(){

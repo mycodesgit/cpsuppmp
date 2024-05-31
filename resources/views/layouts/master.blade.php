@@ -33,6 +33,12 @@
     <link rel="shortcut icon" type="" href="{{ asset('template/img/CPSU_L.png') }}">
 
     <style type="text/css">
+        .toast-top-right {
+            margin-top: 50px;
+        }
+        .toast-top-center {
+            margin-top: 50px;
+        }
         .navbar-light .navbar-nav .nav-item.active .nav-link.active{
             background-color: #f1c40f !important ;
             color: #000 !important;
@@ -353,7 +359,7 @@
         toastr.options = {
             "closeButton":true,
             "progressBar":true,
-            'positionClass': 'toast-bottom-right'
+            'positionClass': 'toast-top-right'
         }
         toastr.success("{{ session('success') }}")
     @endif
@@ -361,7 +367,7 @@
         toastr.options = {
             "closeButton":true,
             "progressBar":true,
-            'positionClass': 'toast-bottom-center'
+            'positionClass': 'toast-top-center'
         }
         toastr.error("{{ session('error1') }}")
     @endif
@@ -372,7 +378,7 @@
         toastr.options = {
             "closeButton":true,
             "progressBar":true,
-            'positionClass': 'toast-bottom-right'
+            'positionClass': 'toast-top-right'
         }
         toastr.success("{{ session('success') }}")
     @endif

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -123,7 +124,7 @@ class UserController extends Controller
                 'campus_id' => $request->input('campus_id'),
             ]);
 
-            return redirect()->route('userEdit', ['id' => $user->id])->with('success', 'Updated Successfully');
+            return redirect()->route('userEdit', ['id' => encrypt($user->id)])->with('success', 'Updated Successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update User!');
         }
