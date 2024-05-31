@@ -144,7 +144,7 @@ class UserController extends Controller
                 'password' => Hash::make($request->input('password'))
             ]);
 
-            return redirect()->route('userEdit', ['id' => $user->id])->with('success', 'Password Updated Successfully');
+            return redirect()->route('userEdit', ['id' => encrypt($user->id)])->with('success', 'Password Updated Successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update User Password!');
         }
