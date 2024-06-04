@@ -47,7 +47,7 @@
 @endif
 
 
-<h5 class="card-title ml-2 mr-2 mt-3" style="border-bottom: 1px solid #04401f; font-size: 14pt">
+{{-- <h5 class="card-title ml-2 mr-2 mt-3" style="border-bottom: 1px solid #04401f; font-size: 14pt">
     Forms
 </h5>
 <div class="ml-2 mr-2 mt-3 mb-3">
@@ -55,7 +55,7 @@
         <a href="{{ route('PDFprRead') }}" class="list-group-item {{ $pdfprActive }}">PR Form</a>
         <a href="{{ route('PDFbarsRead') }}" class="list-group-item {{ $pdfbarsActive }}">RBARA Slip</a>
     </ul>
-</div>
+</div> --}}
 
 <script>
     var allPendingCountRoute = "{{ route('pendingAllListRead') }}";
