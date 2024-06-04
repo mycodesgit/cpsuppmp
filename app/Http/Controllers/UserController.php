@@ -54,7 +54,7 @@ class UserController extends Controller
 
             try {
 
-                User::create([
+                $user = User::create([
                     'lname' => $request->input('lname'),
                     'fname' => $request->input('fname'),
                     'mname' => $request->input('mname'),
@@ -68,7 +68,8 @@ class UserController extends Controller
                     'remember_token' => Str::random(60),
                 ]);
                 PpmpUser::create([
-                    'user_id' => Auth::user()->id,
+                    'user_id' => $user->id,
+                    'ppmp_categories' => null,
                 ]);
 
                 return redirect()->route('userRead')->with('success', 'User stored successfully!');
