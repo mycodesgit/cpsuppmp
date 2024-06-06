@@ -98,7 +98,7 @@
             </div>
 
             <span class="typed-cursor"></span><br>
-            <span style="color: green">$</span>&nbsp;<span class="prompt">Look like you're lost. The page you are looking for is not avaible!!</span><br>
+            <span style="color: green">$</span>&nbsp;<span class="prompt">Look like you're lost. The page you are looking for is not available!!</span><br>
             <span style="color: green">$</span>&nbsp;<span id="typewriter-text"></span><br>
             <div class="footer-modal" style="padding-top: 80px">
                 <a href="./" class="btn btn-outline-primary">Back</a>
