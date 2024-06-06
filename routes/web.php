@@ -116,14 +116,14 @@ Route::group(['middleware'=>['login_auth']],function(){
         Route::get('/pdfBARSformTemplate/view', [PDFprController::class, 'PDFbarsShowTemplate'])->name('PDFbarsShowTemplate');
     });
 
-    Route::prefix('/view-request')->group(function () {
-        Route::get('/listpendingPR/list/bud', [RequestPendingController::class, 'pendingAllBudgetListRead'])->name('pendingAllBudgetListRead');
-        Route::get('/pendingPR/list/ajaxbud', [RequestPendingController::class, 'getpendingBudgetAllListRead'])->name('getpendingBudgetAllListRead');
-        Route::get('/pendingPR/list/view/{pid}', [RequestPendingController::class, 'pendingAllListView'])->name('pendingAllListView');
-        Route::get('/pendingPR/list/pdf/{pid}', [RequestPendingController::class, 'PDFprAllPending'])->name('PDFprAllPending');
-        Route::get('/pendingPR/list/rbaras/{pid}', [RequestPendingController::class, 'PDFrbarasAllPending'])->name('PDFrbarasAllPending');
-        Route::post('/pendingPR/list/checking', [RequestPendingController::class, 'checkingPR'])->name('checkingPR');
-        Route::post('/pendingPR/list/approved', [RequestPendingController::class, 'approvedPR'])->name('approvedPR');
+    Route::prefix('/request')->group(function () {
+        Route::get('/view/listpendingPR/list/bud', [RequestPendingController::class, 'pendingAllBudgetListRead'])->name('pendingAllBudgetListRead');
+        Route::get('/view/pendingPR/list/ajaxbud', [RequestPendingController::class, 'getpendingBudgetAllListRead'])->name('getpendingBudgetAllListRead');
+        Route::get('/view/pendingPR/list/viewreq/{pid}', [RequestPendingController::class, 'pendingAllListView'])->name('pendingAllListView');
+        Route::get('/view/pendingPR/list/pdf/{pid}', [RequestPendingController::class, 'PDFprAllPending'])->name('PDFprAllPending');
+        Route::get('/view/pendingPR/list/rbaras/{pid}', [RequestPendingController::class, 'PDFrbarasAllPending'])->name('PDFrbarasAllPending');
+        Route::post('/view/pendingPR/list/checking', [RequestPendingController::class, 'checkingPR'])->name('checkingPR');
+        Route::post('/view/pendingPR/list/approved', [RequestPendingController::class, 'approvedPR'])->name('approvedPR');
 
         Route::get('/approvedPR/list', [RequestApprovedController::class, 'approvedListAllRead'])->name('approvedListAllRead');
         Route::get('/approvedPR/list/ajaxapp', [RequestApprovedController::class, 'getAllapprovedListRead'])->name('getAllapprovedListRead');
