@@ -152,7 +152,7 @@ class RequestController extends Controller
                         ->join('unit', 'item.unit_id', '=', 'unit.id')
                         ->whereIn('item.category_id', [$purpose->cat_id])
                         ->groupBy('item.id', 'item.item_descrip', 'item.category_id', 'unit.unit_name', 'unit.id', 'item.item_cost', 'category.category_name')
-                        ->select('item.id', 'item.item_descrip', 'item.category_id', 'unit.unit_name', 'unit.id AS unit_id_alias', 'item.item_cost', 'category.category_name')
+                        ->select('item.id', 'item.item_descrip', 'item.category_id', 'unit.unit_name', 'unit.id as unit_id_alias', 'item.item_cost', 'category.category_name')
                         ->get();
 
         $selecteditem = RequestItem::leftJoin('category', 'item_request.category_id', '=', 'category.id')

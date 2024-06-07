@@ -38,7 +38,7 @@
                                         <td style="visibility: ;">{{ $itemdata->unit_id_alias }}</td>
                                         <td>{{ $itemdata->item_descrip }}</td>
                                         <td>{{ $itemdata->unit_name }}</td>
-                                        <td>{{ number_format((float)$itemdata->item_cost, 2, '.', ',') }}</td>
+                                        <td>{{ $itemdata->item_cost }}</td>
                                         <td>
                                             <a href="" class="btn btn-outline-success btn-sm btn-selectitem" data-toggle="modal" data-target="#itemModal" data-id="{{ $itemdata->id }}">
                                                 <i class="fa-solid fa-cart-shopping"></i>
@@ -111,7 +111,7 @@
 
                                         <div class="mt-2 col-md-8">
                                             <label>Total Cost:</label>
-                                            <input type="text" name="total_cost" onkeyup="formatNumber(this);" class="form-control form-control-md" readonly>
+                                            <input type="text" name="total_cost" onkeyup="formatNumber(this);" class="form-control form-control-md">
                                         </div>
 
                                         <div class="col-md-12">
