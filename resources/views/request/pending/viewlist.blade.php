@@ -469,7 +469,18 @@
                             @if($docFile && $docFile->doc_file)
                                 <iframe src="{{ asset('storage/' . $docFile->doc_file) }} #toolbar=0" style="width:100%; height:500px;"></iframe>
                             @else
-                                <p>No PDF file uploaded.</p>
+                                <div>
+                                    <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                        <li class="fileattached">
+                                            <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
+                                            <div class="mailbox-attachment-info">
+                                                <span class="mailbox-attachment-name"><center>No PDF File uploaded</center></span>
+                                                <span class="mailbox-attachment-size clearfix mt-1">
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             @endif
                         </div>
                     </div>
