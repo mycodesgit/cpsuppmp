@@ -466,7 +466,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="custom-tabs-seven" role="tabpanel" aria-labelledby="custom-tabs-seven-tab">
-                            @if($docFile)
+                            @if($docFile && $docFile->doc_file)
                                 <iframe src="{{ asset('storage/' . $docFile->doc_file) }} #toolbar=0" style="width:100%; height:500px;"></iframe>
                             @else
                                 <p>No PDF file uploaded.</p>
