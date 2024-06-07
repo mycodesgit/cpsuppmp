@@ -111,7 +111,7 @@
 
                                         <div class="mt-2 col-md-8">
                                             <label>Total Cost:</label>
-                                            <input type="text" name="total_cost" onkeyup="formatNumber(this);" class="form-control form-control-md">
+                                            <input type="text" name="total_cost" onkeyup="formatNumber(this);" class="form-control form-control-md" readonly>
                                         </div>
 
                                         <div class="col-md-12">
