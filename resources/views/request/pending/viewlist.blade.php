@@ -73,7 +73,7 @@
                                         <td>{{ $data->item_name }}</td>
                                         <td>{{ $data->item_cost }}</td>
                                         <td>{{ $data->qty }}</td>
-                                        <td>{{ $data->total_cost }}</td>
+                                        <td>{{ number_format($data->total_cost, 2) }}</td>
                                         @if(is_numeric(str_replace(',', '', $data->total_cost)))
                                             @php $grandTotal += str_replace(',', '', $data->total_cost); @endphp
                                         @endif
