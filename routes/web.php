@@ -38,7 +38,7 @@ Route::group(['middleware'=>['guest']],function(){
 });
 
 //Middleware
-Route::group(['middleware'=>['login_auth']],function(){
+Route::group(['middleware'=>['login_auth', 'CheckMaintenanceMode']],function(){
     Route::get('/dashboard',[MasterController::class,'dashboard'])->name('dashboard');
 
     //View
@@ -79,6 +79,8 @@ Route::group(['middleware'=>['login_auth']],function(){
 
         Route::get('/purchaseRequest/cart', [RequestController::class, 'prPurposeRequest'])->name('prPurposeRequest');
         Route::post('/purchaseRequest/purpose/add', [RequestController::class, 'prPurposeRequestCreate'])->name('prPurposeRequestCreate');
+        Route::get('/purchaseRequest/cart', [RequestController::class, 'prPurposeRequest'])->name('prPurposeRequest');
+        Route::get('/purchaseRequest/cart/{id}', [RequestController::class,'mycartDelete'])->name('mycartDelete');
 
         Route::get('/selectprcategory/{purpose_Id}', [RequestController::class, 'selectItems'])->name('selectItems');
         Route::get('/selectprcategory/ajax/cartItem/{purpose_Id}', [RequestController::class, 'getcartitemListRead'])->name('getcartitemListRead');
@@ -173,6 +175,9 @@ Route::group(['middleware'=>['login_auth']],function(){
 
         Route::get('/annouce-settings',[UserController::class,'annouceInfo'])->name('annouceInfo');
         Route::post('/annouce-settings/info/update',[UserController::class,'annouceUpdate'])->name('annouceUpdate');
+
+        Route::get('/setting/server/zeus',[UserController::class,'serverMaintenance'])->name('serverMaintenance');
+        Route::post('/setting/server/zeus/admin/maintenance', [UserController::class, 'toggleMaintenance'])->name('toggleMaintenance');
     });
     
     //Logout

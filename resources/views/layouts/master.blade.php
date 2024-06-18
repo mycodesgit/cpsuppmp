@@ -322,6 +322,10 @@
 
 
 
+@if(request()->routeIs('prPurposeRequest'))
+    <script src="{{ asset('js/basic/mycart.js') }}"></script>
+@endif
+
 @if(request()->routeIs('selectItems'))
     <script src="{{ asset('js/ajax/addCart/cartTable.js') }}"></script>
 @endif

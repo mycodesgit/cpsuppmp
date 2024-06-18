@@ -330,4 +330,34 @@ class RequestController extends Controller
         ]);
     }
 
+    public function mycartDelete($id)
+    {
+        DB::beginTransaction();
+        
+        try {
+            FundingSource::where('purpose_id', $id)->delete();
+            PpmpVerify::where('purpose_id', $id)->delete();
+            DocFile::where('purpose_id', $id)->delete();
+
+            $mycart = Purpose::find($id);
+            if ($mycart) {
+                $mycart->delete();
+            }
+
+            DB::commit();
+            
+            return response()->json([
+                'status' => 200,
+                'message' => 'Deleted Successfully',
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return response()->json([
+                'status' => 500,
+                'message' => 'Failed to delete records',
+                'error' => $e->getMessage(),
+            ]);
+        }
+    }
 }

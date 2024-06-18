@@ -32,7 +32,7 @@
                             <tbody id="tbody">
                                 @php $no = 1; @endphp
                                 @foreach($repurpose as $data)
-                                <tr id="tr-{{ $data->id }}">
+                                <tr id="tr-{{ $data->purpose_Id }}">
                                     <td>{{ $no++ }}</td>
                                     <td>
                                         @php
@@ -81,6 +81,9 @@
                                         <a href="{{ route('selectItems', encrypt($data->purpose_Id)) }}" class="btn btn-default green btn-sm btn-view">
                                             <i class="fas fa-eye"></i>
                                         </a>
+                                        <button value="{{ $data->purpose_Id }}" class="btn btn-outline-danger btn-sm cart-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -93,6 +96,8 @@
     </div>
 </div>
 
-
+<script>
+    var mycartDeleteRoute = "{{ route('mycartDelete', ':id') }}";
+</script>
 
 @endsection
