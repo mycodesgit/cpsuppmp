@@ -145,10 +145,10 @@
                                             <label>Fund Cluster:</label>
                                             <select class="form-control" name="fund_cluster">
                                                 <option disabled selected> --- Select ---</option>
-                                                <option value="1">Regular Agency Fund</option>
-                                                <option value="2">Internally-Generated Income</option>
-                                                <option value="3">Business Type Income</option>
-                                                <option value="4">Trust Fund</option>
+                                                <option value="RAF">Regular Agency Fund</option>
+                                                <option value="IGI">Internally-Generated Income</option>
+                                                <option value="BTI">Business Type Income</option>
+                                                <option value="TF">Trust Fund</option>
                                             </select>
                                         </div>
                                     </div>
@@ -277,16 +277,16 @@
                                                             $reqitem = $pendItem->first();
                                                         @endphp
 
-                                                        <option value="3" @if (old('status') == 3 || ($reqitem->status == '4' && old('status') == 0)) {{ 'selected' }} @endif>
+                                                        <option value="3" @if (old('pstatus') == 3 || $reqitem->pstatus == '3') {{ 'selected' }} @endif>
                                                             Return to Client
                                                         </option>
-                                                        <option value="4" @if (old('status') == 4 || $reqitem->status == '4') {{ 'selected' }} @endif>
+                                                        <option value="4" @if (old('pstatus') == 4 || $reqitem->pstatus == '4') {{ 'selected' }} @endif>
                                                             Checking PR
                                                         </option>
-                                                        <option value="5" @if (old('status') == 5 || $reqitem->status == '5') {{ 'selected' }} @endif>
+                                                        <option value="5" @if (old('pstatus') == 5 || $reqitem->pstatus == '5') {{ 'selected' }} @endif>
                                                             Checking PPMP
                                                         </option>
-                                                        <option value="6" @if (old('status') == 6 || $reqitem->status == '6') {{ 'selected' }} @endif>
+                                                        <option value="6" @if (old('pstatus') == 6 || $reqitem->pstatus == '6') {{ 'selected' }} @endif>
                                                             Endorse PR to Budget Office
                                                         </option>
                                                     </select>
@@ -372,7 +372,8 @@
                                                 </span>
                                                 <h5 class="timeline-header">Checking PR</h5>
                                                 <div class="timeline-body">
-                                                    {{ $item->ppmp_remarks }}
+                                                    {{ $item->ppmp_remarks }} - {{ $item->prstatus == 1 ? 'With PPMP' : ($item->prstatus == 2 ? 'Without PPMP' : '') }}
+
                                                 </div>
                                             </div>
                                         </div>

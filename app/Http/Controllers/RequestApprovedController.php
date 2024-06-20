@@ -33,7 +33,7 @@ class RequestApprovedController extends Controller
         $userId = Auth::id();
         $reqitempurpose = Purpose::join('office', 'purpose.office_id', '=', 'office.id')
             ->select('purpose.*', 'purpose.id as pid', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus', ['7', '8'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('purpose.user_id', '=',  $userId)
             ->get();
 
@@ -66,7 +66,7 @@ class RequestApprovedController extends Controller
         $userId = Auth::id();
         $reqitempurpose = Purpose::join('office', 'purpose.office_id', '=', 'office.id')
             ->select('purpose.*', 'purpose.id as pid', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus', ['7', '8'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->get();
 
         $pendCount = $this->getPendingAllCount();
@@ -100,7 +100,7 @@ class RequestApprovedController extends Controller
             ->join('campuses', 'purpose.camp_id', '=', 'campuses.id')
             ->join('category', 'purpose.cat_id', '=', 'category.id')
             ->select('purpose.*', 'purpose.id as pid', 'campuses.*', 'campuses.id as campid', 'category.*', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus', ['7', '8', '9'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('purpose.user_id', '=',  $userId)
             ->get();
         foreach ($data as $record) {
@@ -114,7 +114,7 @@ class RequestApprovedController extends Controller
             ->join('campuses', 'purpose.camp_id', '=', 'campuses.id')
             ->join('category', 'purpose.cat_id', '=', 'category.id')
             ->select('purpose.*', 'purpose.id as pid', 'campuses.*', 'campuses.id as campid', 'category.*', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus', ['7', '8', '9'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->get();
         foreach ($data as $record) {
             $record->pid = encrypt($record->pid);
@@ -143,7 +143,7 @@ class RequestApprovedController extends Controller
                     'purpose.*', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid' )
-            ->whereIn('item_request.status', ['7', '8', '9'])
+            ->whereIn('item_request.status', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
             ->get();
@@ -184,7 +184,7 @@ class RequestApprovedController extends Controller
                     'purpose.*', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid' )
-            ->whereIn('item_request.status', ['7', '8', '9'])
+            ->whereIn('item_request.status', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
 
@@ -218,6 +218,7 @@ class RequestApprovedController extends Controller
             ->join('office', 'item_request.off_id', '=', 'office.id')
             ->join('purpose', 'item_request.purpose_id', '=', 'purpose.id')
             ->join('users', 'item_request.user_id', '=', 'users.id')
+            ->join('funding_source', 'item_request.purpose_id', '=', 'funding_source.purpose_id')
             ->select('item_request.*', 
                     'purpose.*',
                     'office.*', 
@@ -225,8 +226,9 @@ class RequestApprovedController extends Controller
                     'category.category_name', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid',
-                    'office.id as oid' )
-            ->whereIn('item_request.status', ['7', '8', '9'])
+                    'office.id as oid',
+                    'funding_source.fund_cluster' )
+            ->whereIn('item_request.status', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
             ->get();
@@ -263,7 +265,7 @@ class RequestApprovedController extends Controller
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid',
                     'office.id as oid' )
-            ->where('item_request.status', ['7', '8', '9'])
+            ->where('item_request.status', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
 
@@ -305,7 +307,7 @@ class RequestApprovedController extends Controller
                     'funding_source.id as fid',
                     'office.id as oid',
                     'campuses.id as cid' )
-            ->whereIn('item_request.status', ['7', '8', '9'])
+            ->whereIn('item_request.status', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
             ->get();
@@ -349,7 +351,7 @@ class RequestApprovedController extends Controller
                     'office.id as oid',
                     'funding_source.id as fid',
                     'campuses.id as cid' )
-            ->whereIn('item_request.status', ['7', '8', '9'])
+            ->whereIn('item_request.status', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
 
@@ -374,7 +376,7 @@ class RequestApprovedController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function purchasedPR(Request $request) {
+    public function canvassingPR(Request $request) {
         $id = decrypt($request->id);
         RequestItem::where('status', 8)
             ->where('purpose_id', $id)
@@ -382,6 +384,90 @@ class RequestApprovedController extends Controller
 
         Purpose::where('id', $id)
             ->update(['pstatus' =>  9]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function canvassedPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 9)
+            ->where('purpose_id', $id)
+            ->update(['status' => 10]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  10]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function philgepspostingPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 10)
+            ->where('purpose_id', $id)
+            ->update(['status' => 11]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  11]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function postedPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 11)
+            ->where('purpose_id', $id)
+            ->update(['status' => 12]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  12]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function biddingPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 12)
+            ->where('purpose_id', $id)
+            ->update(['status' => 13]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  13]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function consolidationPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 13)
+            ->where('purpose_id', $id)
+            ->update(['status' => 14]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  14]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function awardedPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 14)
+            ->where('purpose_id', $id)
+            ->update(['status' => 15]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  15]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function purchasedPR(Request $request) {
+        $id = decrypt($request->id);
+        RequestItem::where('status', 15)
+            ->where('purpose_id', $id)
+            ->update(['status' => 16]);
+
+        Purpose::where('id', $id)
+            ->update(['pstatus' =>  16]);
 
         return response()->json(['success' => true]);
     }

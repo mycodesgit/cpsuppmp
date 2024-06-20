@@ -142,7 +142,7 @@
 
 	<div>
 		Entity Name: <u><b>CENTRAL PHILIPPINES STATE UNIVERSITY</b></u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Fund Cluster: _____________
+		Fund Cluster: <u>{{ $reqitem->first()->fund_cluster }}</u>
 	</div>
 	<p style="margin-top:-13px"></p>
 	<table id="prtemplate">
@@ -241,7 +241,7 @@
 			</tr>
 			<tr>
 				<th class="cell-requested-designation-label">Designation</th>
-				<th colspan="2" class="cell-requested-designation"><b></b></th>
+				<th colspan="2" class="cell-requested-designation"><b>{{ Auth::user()->role }}</b></th>
 				<th colspan="3" class="cell-approved-designation"><b>SUC President II</b></th>
 			</tr>
 		</tbody>

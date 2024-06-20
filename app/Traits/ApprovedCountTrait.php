@@ -17,7 +17,7 @@ trait ApprovedCountTrait
     {
         return Purpose::join('office', 'purpose.office_id', '=', 'office.id')
             ->select('purpose.*', 'purpose.id as pid', 'office.*', 'office.id as oid')
-            ->whereIn('purpose.pstatus',  ['7', '8', '9'])
+            ->whereIn('purpose.pstatus',  ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->count();
     }
     public function getApprovedUserCount()
@@ -25,7 +25,7 @@ trait ApprovedCountTrait
         $userId = Auth::id();
         return Purpose::join('office', 'purpose.office_id', '=', 'office.id')
             ->join('users', 'purpose.user_id', '=', 'users.id')
-            ->whereIn('purpose.pstatus', ['7', '8', '9'])
+            ->whereIn('purpose.pstatus', ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16'])
             ->where('purpose.user_id', '=', $userId)
             ->count();
     }

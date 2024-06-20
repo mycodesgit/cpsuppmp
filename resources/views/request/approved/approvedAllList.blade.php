@@ -49,6 +49,13 @@
     var allApprovedRoute = "{{ route('getAllapprovedListRead') }}";
     var approvedAllListViewRoute = '{{ route('approvedAllListView', '') }}';
     var approvedReceivedViewRoute = '{{ route('receivedPR') }}';
+    var approvedCanvassingViewRoute = '{{ route('canvassingPR') }}';
+    var approvedCanvassedViewRoute = '{{ route('canvassedPR') }}';
+    var approvedPostingViewRoute = '{{ route('philgepspostingPR') }}';
+    var approvedPostedViewRoute = '{{ route('postedPR') }}';
+    var approvedBiddingViewRoute = '{{ route('biddingPR') }}';
+    var approvedConsolidationViewRoute = '{{ route('consolidationPR') }}';
+    var approvedAwardViewRoute = '{{ route('awardedPR') }}';
     var approvedPurchasedViewRoute = '{{ route('purchasedPR') }}';
 
     var userRole = '{{ Auth::user()->role }}';

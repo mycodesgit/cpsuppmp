@@ -134,7 +134,15 @@ Route::group(['middleware'=>['login_auth', 'CheckMaintenanceMode']],function(){
         Route::get('/approvedPR/list/rbaras/{pid}', [RequestApprovedController::class, 'PDFrbarasAllApproved'])->name('PDFrbarasAllApproved');
 
         Route::post('/approvedPR/list/received', [RequestApprovedController::class, 'receivedPR'])->name('receivedPR');
+        Route::post('/approvedPR/list/canvassing', [RequestApprovedController::class, 'canvassingPR'])->name('canvassingPR');
+        Route::post('/approvedPR/list/canvassed', [RequestApprovedController::class, 'canvassedPR'])->name('canvassedPR');
+        Route::post('/approvedPR/list/philgepsposting', [RequestApprovedController::class, 'philgepspostingPR'])->name('philgepspostingPR');
+        Route::post('/approvedPR/list/posted', [RequestApprovedController::class, 'postedPR'])->name('postedPR');
+        Route::post('/approvedPR/list/bidding', [RequestApprovedController::class, 'biddingPR'])->name('biddingPR');
+        Route::post('/approvedPR/list/consolidation', [RequestApprovedController::class, 'consolidationPR'])->name('consolidationPR');
+        Route::post('/approvedPR/list/awarded', [RequestApprovedController::class, 'awardedPR'])->name('awardedPR');
         Route::post('/approvedPR/list/purchased', [RequestApprovedController::class, 'purchasedPR'])->name('purchasedPR');
+        
         Route::post('/role/user', [RequestApprovedController::class, 'getUserRole'])->name('getUserRole');
     });
 

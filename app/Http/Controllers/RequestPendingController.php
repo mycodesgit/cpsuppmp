@@ -479,7 +479,7 @@ class RequestPendingController extends Controller
             ]);
         $year = Carbon::now()->format('Y');
         $prnumber = '';
-        $latestPrnumber = Purpose::where('pr_no', 'like', $year . '-' . $fund_cluster . '-%')->latest('created_at')->first();
+        $latestPrnumber = Purpose::where('pr_no', 'like', $year . '-%' . '-' . $fund_cluster)->latest('created_at')->first();
 
         if (empty($latestPrnumber)) {
             $latestId = 0;
@@ -489,7 +489,7 @@ class RequestPendingController extends Controller
 
         $newPrId = $latestId + 1;
         $paddedValue = str_pad($newPrId, 4, '0', STR_PAD_LEFT);
-        $prnumber = $year . '-' . $fund_cluster . '-' . $paddedValue;
+        $prnumber = $year . '-' . $paddedValue . '-' . $fund_cluster;
 
         Purpose::where('id', $purpose_id)
             ->update(['pr_no' => $prnumber]);

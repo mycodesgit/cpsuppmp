@@ -528,6 +528,125 @@
         });
     });
 
+    $(document).on('click', '.canvassing-pr', function(e) {
+        e.preventDefault();
+        var approvedCanvassingViewRoute = '{{ route('canvassingPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedCanvassingViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.canvassed-pr', function(e) {
+        e.preventDefault();
+        var approvedCanvassedViewRoute = '{{ route('canvassedPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedCanvassedViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.posting-pr', function(e) {
+        e.preventDefault();
+        var approvedPostingViewRoute = '{{ route('philgepspostingPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedPostingViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.posted-pr', function(e) {
+        e.preventDefault();
+        var approvedPostedViewRoute = '{{ route('postedPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedPostedViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.bidding-pr', function(e) {
+        e.preventDefault();
+        var approvedBiddingViewRoute = '{{ route('biddingPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedBiddingViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.consolidation-pr', function(e) {
+        e.preventDefault();
+        var approvedConsolidationViewRoute = '{{ route('consolidationPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedConsolidationViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.awarded-pr', function(e) {
+        e.preventDefault();
+        var approvedAwardViewRoute = '{{ route('awardedPR') }}';
+        var prId = $(this).data('id');
+        $.ajax({
+            url: approvedAwardViewRoute,
+            method: 'POST',
+            data: { id: prId },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
     $(document).on('click', '.purchased-pr', function(e) {
         e.preventDefault();
         var approvedPurchasedViewRoute = '{{ route('purchasedPR') }}';

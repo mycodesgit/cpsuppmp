@@ -169,6 +169,7 @@
                                         <input type="file" name="doc_file" class="form-control form-control-sm" id="fileInput" accept=".pdf" onchange="handleFileUpload()">
                                     </div>
                                 </div>
+                                <span class="text-danger text-xs">Upload a PDF file for attachement Layout</span>
                                 <button id="submitPRButton" class="btn btn-success float-right">
                                     <i class="fas fa-save"></i> Submit PR
                                 </button>

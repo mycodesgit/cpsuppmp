@@ -12,6 +12,7 @@
                 // {data: 'id', name: 'id', orderable: false, searchable: false},
                 // {data: 'receipt_control'},
                 {data: 'campus_abbr'},
+                {data: 'pr_no'},
                 {data: 'type_request',
                         render: function(data, type, row) {
                         switch(parseInt(data)) {
@@ -43,14 +44,26 @@
                 {data: 'pstatus',
                         render: function(data, type, row) {
                         switch(parseInt(data)) {
-                            case 1:
-                                return '<span class="badge badge-info">Ongoing</span>';
-                            case 2:
-                                return '<span class="badge badge-warning">Pending</span>';
-                            case 3:
-                                return '<span class="badge badge-danger">Decline</span>';
                             case 7:
                                 return '<span class="badge badge-success">PR has been Approved</span>';
+                            case 8:
+                                return '<span class="badge badge-default bg-teal">PR has been Received</span>';
+                            case 9:
+                                return '<span class="badge badge-default bg-yellow">For Canvassing</span>';
+                            case 10:
+                                return '<span class="badge badge-default bg-orange">PR Canvassed</span>';
+                            case 11:
+                                return '<span class="badge badge-default bg-blue">For Philgeps Posting</span>';
+                            case 12:
+                                return '<span class="badge badge-default bg-gray">PR Posted</span>';
+                            case 13:
+                                return '<span class="badge badge-default bg-gray-dark">Bidding</span>';
+                            case 14:
+                                return '<span class="badge badge-default bg-purple">For Consolidation</span>';
+                            case 15:
+                                return '<span class="badge badge-default bg-pink">Awarded</span>';
+                            case 16:
+                                return '<span class="badge badge-default bg-red">Purchased</span>';
                             default:
                                 return '<span class="badge badge-secondary">Unknown Status</span>';
                         }

@@ -19,7 +19,7 @@
                             <thead>
                                 <tr>
                                     <th width="10">No</th>
-                                    <th>Cateogry</th>
+                                    <th>Unit</th>
                                     <th width="10">Action</th>
                                 </tr>
                             </thead>
