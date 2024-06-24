@@ -335,7 +335,7 @@
 				<th style="border-top: none; text-align: left; font-size: 8pt;" width="46">Fund Cluster</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="150" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 'RFA' ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 'RAF' ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Regular Fund Agency
