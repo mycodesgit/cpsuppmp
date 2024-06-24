@@ -257,7 +257,7 @@
 				<th style="border-top: none; font-size: 8pt;" width="43"  height="20">Campus</th>
 				<th style="border-top: none; font-size: 8pt;" width="145"  height="20">{{ $reqitem->first()->campus_name }}</th>
 				<th style="border-top: none; font-size: 8pt;" width="43"  height="20">Program / Activity /<br>Project</th>
-				<th style="border-top: none; font-size: 8pt;" width="180"  height="20"></th>
+				<th style="border-top: none; font-size: 8pt;" width="180"  height="20">{{ $reqitem->first()->progactproject }}</th>
 			</tr>
 		</thead>
 	</table>
