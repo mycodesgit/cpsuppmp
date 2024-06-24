@@ -335,25 +335,25 @@
 				<th style="border-top: none; text-align: left; font-size: 8pt;" width="46">Fund Cluster</th>
 				<th style="text-align: left;font-size: 8pt; border-top: none;" width="150" height="20">
 					<div style="margin-top: -5px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 1 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 'RFA' ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Regular Fund Agency
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 2 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 'IGI' ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Internally-Generated Income
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 3 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 'BTI' ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Business Type Income
 					</div>
 					<div style="margin-top: -3px; margin-left: 0px;">
-					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 4 ? 'checked' : '' }}>
+					    <input type="checkbox" name="" class="" {{ $reqitem->first()->fund_cluster == 'TF' ? 'checked' : '' }}>
 					</div>
 					<div style="margin-top: -18px; margin-left: 18px;">
 					    Trust Fund
