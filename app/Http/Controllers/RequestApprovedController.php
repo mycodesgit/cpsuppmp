@@ -274,7 +274,7 @@ class RequestApprovedController extends Controller
             'reqitem' => $reqitem,
         ];
 
-        $pdf = PDF::loadView('request.pending.prpdf',  $data)->setPaper('Legal', 'portrait');
+        $pdf = PDF::loadView('request.approved.prpdf',  $data)->setPaper('Legal', 'portrait');
         return $pdf->stream();
     }
 
