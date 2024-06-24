@@ -31,10 +31,13 @@
                 {data: 'office_abbr'},
                 {data: 'purpose_name'},
                 {data: 'category_name'},
-                {data: 'created_at',
+                { 
+                    data: 'created_at',
                     render: function (data, type, row) {
                         if (type === 'display') {
-                            return moment(data).format('MMMM D, YYYY');
+                            // Explicitly parse the date string with a format
+                            var parsedDate = moment(data, 'YYYY-MM-DD HH:mm:ss');
+                            return parsedDate.format('MMMM D, YYYY');
                         } else {
                             return data;
                         }
