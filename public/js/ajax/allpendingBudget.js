@@ -30,7 +30,7 @@
                 {data: 'office_abbr'},
                 {data: 'purpose_name'},
                 {data: 'category_name'},
-                {data: 'created_at',
+                {data: 'cpdate',
                     render: function (data, type, row) {
                         if (type === 'display') {
                             return moment(data).format('MMMM D, YYYY');
