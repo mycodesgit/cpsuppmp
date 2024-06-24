@@ -31,16 +31,10 @@
                 {data: 'office_abbr'},
                 {data: 'purpose_name'},
                 {data: 'category_name'},
-                {
-                    data: 'created_at',
-                    render: function(data, type, row) {
-                        console.log('Raw data:', data); // Debugging: Check the raw data
-                        
+                {data: 'cpdate',
+                    render: function (data, type, row) {
                         if (type === 'display') {
-                            // Parse the date string with the specified format
-                            var parsedDate = moment(data, 'YYYY-MM-DD HH:mm:ss');
-                            // Format the date for display
-                            return parsedDate.format('MMMM D, YYYY');
+                            return moment(data).format('MMMM D, YYYY');
                         } else {
                             return data;
                         }
