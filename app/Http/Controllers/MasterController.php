@@ -16,7 +16,8 @@ use App\Models\Annoucement;
 
 class MasterController extends Controller
 {
-    public function dashboard(){
+    public function dashboard()
+    {
         $camp = Campus::all();
         $userCount = User::count();
         $campusCount = Campus::count();
@@ -36,7 +37,8 @@ class MasterController extends Controller
         return view("home.dashboard", compact('camp', 'userCount', 'campusCount', 'offCount', 'category', 'annoucement'));
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('getLogin')->with('success','You have been Successfully Logged Out');
     }

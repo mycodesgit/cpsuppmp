@@ -277,7 +277,8 @@ class RequestPendingController extends Controller
                     'category.category_name', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid',
-                    'office.id as oid' )
+                    'office.id as oid',
+                    'purpose.created_at as cpdate' )
             ->whereIn('item_request.status', ['2', '3', '4', '5', '6', '7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->where('item_request.user_id', '=',  $userId)
@@ -314,7 +315,8 @@ class RequestPendingController extends Controller
                     'category.category_name', 
                     'unit.unit_name', 'item.*', 
                     'item_request.id as iid',
-                    'office.id as oid' )
+                    'office.id as oid',
+                    'purpose.created_at as cpdate' )
             ->whereIn('item_request.status', ['2', '3', '4', '5', '6', '7', '8', '9'])
             ->where('item_request.purpose_id', '=',  $enID)
             ->get();
