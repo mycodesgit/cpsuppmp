@@ -48,7 +48,7 @@
                             case 2:
                                 return '<span class="badge badge-warning">Pending</span>';
                             case 3:
-                                return '<span class="badge badge-danger">Returned to Client</span>';
+                                return '<span class="badge badge-danger">Returned to End User</span>';
                             case 4:
                                 return '<span class="badge badge-success" style="font-size: 12px">Checking PR in Procurement</span>';
                             case 5:
