@@ -81,6 +81,7 @@ Route::group(['middleware'=>['login_auth', 'CheckMaintenanceMode']],function(){
         Route::get('/purchaseRequest/cart', [RequestController::class, 'prPurposeRequest'])->name('prPurposeRequest');
         Route::post('/purchaseRequest/purpose/add', [RequestController::class, 'prPurposeRequestCreate'])->name('prPurposeRequestCreate');
         Route::get('/purchaseRequest/cart', [RequestController::class, 'prPurposeRequest'])->name('prPurposeRequest');
+        Route::post('/purchaseRequest/update', [RequestController::class, 'prPurposeRequestUpdate'])->name('prPurposeRequestUpdate');
         Route::get('/purchaseRequest/cart/{id}', [RequestController::class,'mycartDelete'])->name('mycartDelete');
 
         Route::get('/selectprcategory/{purpose_Id}', [RequestController::class, 'selectItems'])->name('selectItems');

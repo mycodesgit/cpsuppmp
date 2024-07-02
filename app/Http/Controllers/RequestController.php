@@ -142,6 +142,24 @@ class RequestController extends Controller
         }
     }
 
+    public function prPurposeRequestUpdate(Request $request) {
+        $request->validate([
+            'id' => 'required',
+            'purpose_name' => 'required',
+        ]);
+
+        try {
+            $purpose = Purpose::findOrFail($request->input('id'));
+            $purpose->update([
+                'purpose_name' => $request->input('purpose_name')
+            ]);
+
+            return redirect()->back()->with('success', 'Updated Successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error1', 'Failed to update!');
+        }
+    }
+
     public function selectItems($purpose_Id) {
         $userId = Auth::id();
         $purpose_id = decrypt($purpose_Id);
